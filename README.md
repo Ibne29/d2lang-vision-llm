@@ -21,9 +21,13 @@ L’objectif est de démontrer comment un LLM peut:
 # Technologies utilisées
 
 Node.js	: Environnement d’exécution du pipeline
+
 Mistral API (codestral-latest) : Génération du code D2
+
 D2lang	: Langage de description de diagrammes
+
 RAG (via fetch)	: Téléchargement de la documentation officielle D2
+
 dotenv	: Gestion sécurisée des clés API
 
 
@@ -31,8 +35,10 @@ dotenv	: Gestion sécurisée des clés API
 # Exécution du pipeline
 
 node pipeline.js "Deux clients parlent à un serveur et une base de données"
+
 (On peut changer de prompt)
 
 # Produit 
 un fichier diagram.d2 avec le code généré,
+
 une image diagram.png avec le diagramme compilé.
