@@ -1,0 +1,27 @@
+# D2 Documentation Summary
+
+## Basic Syntax
+- Nodes are written as: A -> B
+- Clusters use braces {} to group related nodes.
+- Text after ":" is a label.
+
+## Common Shapes
+- rectangle
+- circle
+- cylinder (for databases)
+- person (for users)
+- page (for documents)
+- diamond (for decisions)
+- hexagon (for processes)
+
+## Styling
+- shape: defines the visual form
+- label: text to display
+- style.multiple: true indicates multiple items
+
+Example:
+server: {
+  api: { shape: rectangle; label: "API" }
+  db: { shape: cylinder; label: "Database" }
+  api -> db: "queries"
+}
