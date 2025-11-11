@@ -7,7 +7,7 @@
     "dotenv": "^17.2.3",
     "go": "^3.0.1",
     "node-fetch": "^3.3.2",
-    "openai": "^6.2.0",
+    "openai": "^6.8.1",
     "tesseract.js": "^6.0.1"
   },
   "name": "projet_cp",

@@ -1,0 +1,29 @@
+graph tb
+  subgraph neural_network
+    direction tb
+    subgraph input_layer
+      neuron1
+      neuron2
+      neuron3
+    end
+    subgraph hidden_layer
+      neuron4
+      neuron5
+      neuron6
+    end
+    subgraph output_layer
+      neuron7
+    end
+    neuron1 --> neuron4
+    neuron2 --> neuron4
+    neuron3 --> neuron4
+    neuron1 --> neuron5
+    neuron2 --> neuron5
+    neuron3 --> neuron5
+    neuron1 --> neuron6
+    neuron2 --> neuron6
+    neuron3 --> neuron6
+    neuron4 --> neuron7
+    neuron5 --> neuron7
+    neuron6 --> neuron7
+  end

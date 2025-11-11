@@ -1,0 +1,28 @@
+graph {
+  subgraph input_layer {
+    neuron1
+    neuron2
+    neuron3
+  }
+
+  subgraph hidden_layer {
+    neuron4
+    neuron5
+  }
+
+  subgraph output_layer {
+    neuron6
+    neuron7
+  }
+
+  neuron1 -> neuron4
+  neuron1 -> neuron5
+  neuron2 -> neuron4
+  neuron2 -> neuron5
+  neuron3 -> neuron4
+  neuron3 -> neuron5
+  neuron4 -> neuron6
+  neuron4 -> neuron7
+  neuron5 -> neuron6
+  neuron5 -> neuron7
+}
