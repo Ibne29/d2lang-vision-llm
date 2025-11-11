@@ -1,8 +1,440 @@
-graph width: 800px
+direction: right
 
-  input_layer: [ "Neuron 1", "Neuron 2", "Neuron 3" ]
-  hidden_layer: [ "Neuron 4", "Neuron 5", "Neuron 6" ]
-  output_layer: [ "Neuron 7" ]
+entree: {
+  shape: circle
+  label: "Entrée"
+  width: 100
+  height: 100
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 2
+  }
+}
 
-  input_layer -> hidden_layer
-  hidden_layer -> output_layer
+cachee: {
+  shape: circle
+  label: "Cachée"
+  width: 100
+  height: 100
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 2
+  }
+}
+
+sortie: {
+  shape: circle
+  label: "Sortie"
+  width: 100
+  height: 100
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 2
+  }
+}
+
+entree -> cachee: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+cachee -> sortie: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_1: {
+  shape: circle
+  label: "N1"
+  width: 20
+  height: 20
+  style: {
+    fill: "#fff"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_2: {
+  shape: circle
+  label: "N2"
+  width: 20
+  height: 20
+  style: {
+    fill: "#fff"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_3: {
+  shape: circle
+  label: "N3"
+  width: 20
+  height: 20
+  style: {
+    fill: "#fff"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_4: {
+  shape: circle
+  label: "N4"
+  width: 20
+  height: 20
+  style: {
+    fill: "#fff"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_1: {
+  shape: circle
+  label: "N1"
+  width: 20
+  height: 20
+  style: {
+    fill: "#fff"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_2: {
+  shape: circle
+  label: "N2"
+  width: 20
+  height: 20
+  style: {
+    fill: "#fff"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_3: {
+  shape: circle
+  label: "N3"
+  width: 20
+  height: 20
+  style: {
+    fill: "#fff"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_4: {
+  shape: circle
+  label: "N4"
+  width: 20
+  height: 20
+  style: {
+    fill: "#fff"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_5: {
+  shape: circle
+  label: "N5"
+  width: 20
+  height: 20
+  style: {
+    fill: "#fff"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_sortie_1: {
+  shape: circle
+  label: "N1"
+  width: 20
+  height: 20
+  style: {
+    fill: "#fff"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_sortie_2: {
+  shape: circle
+  label: "N2"
+  width: 20
+  height: 20
+  style: {
+    fill: "#fff"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_sortie_3: {
+  shape: circle
+  label: "N3"
+  width: 20
+  height: 20
+  style: {
+    fill: "#fff"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_1 -> neurone_cachee_1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_1 -> neurone_cachee_2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_1 -> neurone_cachee_3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_1 -> neurone_cachee_4: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_1 -> neurone_cachee_5: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_2 -> neurone_cachee_1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_2 -> neurone_cachee_2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_2 -> neurone_cachee_3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_2 -> neurone_cachee_4: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_2 -> neurone_cachee_5: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_3 -> neurone_cachee_1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_3 -> neurone_cachee_2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_3 -> neurone_cachee_3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_3 -> neurone_cachee_4: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_3 -> neurone_cachee_5: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_4 -> neurone_cachee_1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_4 -> neurone_cachee_2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_4 -> neurone_cachee_3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_4 -> neurone_cachee_4: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_entree_4 -> neurone_cachee_5: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_1 -> neurone_sortie_1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_1 -> neurone_sortie_2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_1 -> neurone_sortie_3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_2 -> neurone_sortie_1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_2 -> neurone_sortie_2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_2 -> neurone_sortie_3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_3 -> neurone_sortie_1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_3 -> neurone_sortie_2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_3 -> neurone_sortie_3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_4 -> neurone_sortie_1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_4 -> neurone_sortie_2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_4 -> neurone_sortie_3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_5 -> neurone_sortie_1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_5 -> neurone_sortie_2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+neurone_cachee_5 -> neurone_sortie_3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}

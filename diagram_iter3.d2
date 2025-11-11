@@ -1,29 +1,50 @@
-graph tb
-  subgraph neural_network
-    direction tb
-    subgraph input_layer
-      neuron1
-      neuron2
-      neuron3
-    end
-    subgraph hidden_layer
-      neuron4
-      neuron5
-      neuron6
-    end
-    subgraph output_layer
-      neuron7
-    end
-    neuron1 --> neuron4
-    neuron2 --> neuron4
-    neuron3 --> neuron4
-    neuron1 --> neuron5
-    neuron2 --> neuron5
-    neuron3 --> neuron5
-    neuron1 --> neuron6
-    neuron2 --> neuron6
-    neuron3 --> neuron6
-    neuron4 --> neuron7
-    neuron5 --> neuron7
-    neuron6 --> neuron7
-  end
+direction: right
+
+entrée: {
+  neurone1
+  neurone2
+  neurone3
+  neurone4
+}
+
+cachée: {
+  neurone5
+  neurone6
+  neurone7
+  neurone8
+  neurone9
+}
+
+sortie: {
+  neurone10
+}
+
+entrée.neurone1 -> cachée.neurone5
+entrée.neurone1 -> cachée.neurone6
+entrée.neurone1 -> cachée.neurone7
+entrée.neurone1 -> cachée.neurone8
+entrée.neurone1 -> cachée.neurone9
+
+entrée.neurone2 -> cachée.neurone5
+entrée.neurone2 -> cachée.neurone6
+entrée.neurone2 -> cachée.neurone7
+entrée.neurone2 -> cachée.neurone8
+entrée.neurone2 -> cachée.neurone9
+
+entrée.neurone3 -> cachée.neurone5
+entrée.neurone3 -> cachée.neurone6
+entrée.neurone3 -> cachée.neurone7
+entrée.neurone3 -> cachée.neurone8
+entrée.neurone3 -> cachée.neurone9
+
+entrée.neurone4 -> cachée.neurone5
+entrée.neurone4 -> cachée.neurone6
+entrée.neurone4 -> cachée.neurone7
+entrée.neurone4 -> cachée.neurone8
+entrée.neurone4 -> cachée.neurone9
+
+cachée.neurone5 -> sortie.neurone10
+cachée.neurone6 -> sortie.neurone10
+cachée.neurone7 -> sortie.neurone10
+cachée.neurone8 -> sortie.neurone10
+cachée.neurone9 -> sortie.neurone10

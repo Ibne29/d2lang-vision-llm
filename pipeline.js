@@ -30,7 +30,7 @@ async function fetchD2Doc() {
 // --- Étape 2 : Génération du code D2 via Codestral ---
 async function generateD2(prompt, ragText, feedback = "") {
   const response = await client.chat.complete({
-    model: "devstral-small-2507",
+    model: "codestral-2508",
     //model: "codestral-latest",
     messages: [
       {
@@ -139,7 +139,7 @@ async function embedding(text) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "codestral-embed",
+      model: "mistral-embed-2312",
       input: text,
     }),
   });
@@ -151,7 +151,7 @@ async function embedding(text) {
 async function main() {
   const ragText = await fetchD2Doc();
   let feedback = "";
-  const seuil_comparaison = 0.80;
+  const seuil_comparaison = 0.85;
 
   for (let i = 0; i < 5; i++) {
     console.log(`\n🔁 Itération ${i + 1}`);

@@ -1,37 +1,487 @@
-graph ltr
+direction: right
 
-  subgraph neural_network
-    direction tb
+input: {
+  shape: circle
+  label: "Entrée"
+  width: 100
+  height: 100
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 2
+  }
+}
 
-    subgraph input_layer
-      direction lr
-      n1: neuron
-      n2: neuron
-      n3: neuron
-    end
+hidden: {
+  shape: circle
+  label: "Cachée"
+  width: 100
+  height: 100
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 2
+  }
+}
 
-    subgraph hidden_layer
-      direction lr
-      n4: neuron
-      n5: neuron
-      n6: neuron
-    end
+output: {
+  shape: circle
+  label: "Sortie"
+  width: 100
+  height: 100
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 2
+  }
+}
 
-    subgraph output_layer
-      direction lr
-      n7: neuron
-    end
+input -> hidden: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
 
-    n1 -> n4
-    n2 -> n4
-    n3 -> n4
-    n1 -> n5
-    n2 -> n5
-    n3 -> n5
-    n1 -> n6
-    n2 -> n6
-    n3 -> n6
-    n4 -> n7
-    n5 -> n7
-    n6 -> n7
-  end
+hidden -> output: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N1: {
+  shape: circle
+  label: "N1"
+  width: 20
+  height: 20
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N2: {
+  shape: circle
+  label: "N2"
+  width: 20
+  height: 20
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N3: {
+  shape: circle
+  label: "N3"
+  width: 20
+  height: 20
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N4: {
+  shape: circle
+  label: "N4"
+  width: 20
+  height: 20
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N1: {
+  shape: circle
+  label: "N1"
+  width: 20
+  height: 20
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N2: {
+  shape: circle
+  label: "N2"
+  width: 20
+  height: 20
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N3: {
+  shape: circle
+  label: "N3"
+  width: 20
+  height: 20
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N4: {
+  shape: circle
+  label: "N4"
+  width: 20
+  height: 20
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N5: {
+  shape: circle
+  label: "N5"
+  width: 20
+  height: 20
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+output.N1: {
+  shape: circle
+  label: "N1"
+  width: 20
+  height: 20
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+output.N2: {
+  shape: circle
+  label: "N2"
+  width: 20
+  height: 20
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+output.N3: {
+  shape: circle
+  label: "N3"
+  width: 20
+  height: 20
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+output.N4: {
+  shape: circle
+  label: "N4"
+  width: 20
+  height: 20
+  style: {
+    fill: "#f9f9f9"
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N1 -> hidden.N1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N1 -> hidden.N2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N1 -> hidden.N3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N1 -> hidden.N4: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N1 -> hidden.N5: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N2 -> hidden.N1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N2 -> hidden.N2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N2 -> hidden.N3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N2 -> hidden.N4: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N2 -> hidden.N5: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N3 -> hidden.N1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N3 -> hidden.N2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N3 -> hidden.N3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N3 -> hidden.N4: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N3 -> hidden.N5: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N4 -> hidden.N1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N4 -> hidden.N2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N4 -> hidden.N3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N4 -> hidden.N4: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+input.N4 -> hidden.N5: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N1 -> output.N1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N1 -> output.N2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N1 -> output.N3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N1 -> output.N4: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N2 -> output.N1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N2 -> output.N2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N2 -> output.N3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N2 -> output.N4: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N3 -> output.N1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N3 -> output.N2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N3 -> output.N3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N3 -> output.N4: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N4 -> output.N1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N4 -> output.N2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N4 -> output.N3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N4 -> output.N4: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N5 -> output.N1: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N5 -> output.N2: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N5 -> output.N3: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
+
+hidden.N5 -> output.N4: {
+  style: {
+    stroke: "#333"
+    stroke-width: 1
+  }
+}
