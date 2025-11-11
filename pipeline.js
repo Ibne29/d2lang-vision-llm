@@ -42,13 +42,13 @@ async function generateD2(prompt, ragText, feedback = "") {
       {
         role: "user",
         content: `
-Documentation D2 (extrait) :
-${ragText}
+                Documentation D2 (extrait) :
+                ${ragText}
 
-${feedback}
+                ${feedback}
 
-Écris un diagramme D2 qui correspond à :
-${prompt}
+                Écris un diagramme D2 qui correspond à :
+                ${prompt}
         `,
       },
     ],
@@ -64,7 +64,11 @@ function compileD2(file) {
     const output = file.replace(".d2", ".png");
 
     console.log("🛠️ Compilation du diagramme...");
-    execSync(`d2.exe "${input}" "${output}"`, { stdio: "inherit" });
+    // Sur Mac / Linux : utiliser simplement "d2"
+// Sur Windows : garder "d2.exe"
+  const d2Command = process.platform === "win32" ? "d2.exe" : "d2";
+  execSync(`${d2Command} "${input}" "${output}"`, { stdio: "inherit" });
+
     console.log(`✅ Diagramme généré : ${output}`);
     return true;
   } catch (err) {
@@ -91,7 +95,7 @@ async function main() {
       .trim();
 
     fs.writeFileSync("diagram.d2", cleanCode);
-    console.log("🧠 Code D2 nettoyé :\n", cleanCode);
+    console.log("🧠 Code D2 nettoyé :\n");
 
     // --- Compilation ---
     const result = compileD2("diagram.d2");

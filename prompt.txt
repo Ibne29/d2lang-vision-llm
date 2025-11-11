@@ -1,0 +1,42 @@
+"Un système composé de deux départements : un département RH avec trois employés et un département IT avec deux serveurs et une base de données."
+
+"Une architecture logicielle avec trois couches : interface utilisateur, logique métier et base de données."
+
+"Un réseau d’entreprise avec plusieurs sous-réseaux (LAN, DMZ, Internet) et un pare-feu entre eux."
+
+"Un professeur encadrant deux doctorants, chacun collaborant avec un laboratoire différent."
+
+"Un système de microservices : API Gateway, Service Authentification, Service Paiement, Service Notification et une base de données partagée."
+
+
+"Un diagramme illustrant le processus de décision dans une entreprise (idée → validation → implémentation → feedback)."
+
+"Une chaîne de traitement de données scientifiques : capteur → prétraitement → analyse statistique → rapport PDF."
+
+"Un modèle d'apprentissage automatique : jeu de données, modèle, entraînement, validation, prédiction."
+
+"Un flux de traitement d’images : capture → débruitage → reconnaissance → stockage."
+
+"Un réseau social miniature avec trois utilisateurs, chacun pouvant suivre ou être suivi."
+
+
+
+"Une architecture distribuée avec trois régions cloud (Europe, USA, Asie) contenant chacune un serveur d’application et une base de données répliquée."
+
+"Un graphe social où cinq personnes sont connectées entre elles selon leurs relations d’amitié et de collaboration."
+
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+"Un réseau neuronal avec trois couches (entrée, cachée, sortie), et des flèches représentant les connexions entre les neurones."
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+"Un modèle client-serveur avec un cache local, un load balancer et deux serveurs de calcul derrière."
+
+"Une architecture de microservices Kubernetes : API Gateway, Auth Service, Order Service, Database, et Message Queue Kafka."

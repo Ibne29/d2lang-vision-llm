@@ -1,16 +1,25 @@
 direction: right
 
-client1: Client 1
-client2: Client 2
-server: Serveur
-database: Base de données
+entrée: {
+  neurone1: "Neurone 1"
+  neurone2: "Neurone 2"
+  neurone3: "Neurone 3"
+}
 
-client1 -> server: Requête
-server -> database: Requête
-database -> server: Réponse
-server -> client1: Réponse
+cachée: {
+  neurone4: "Neurone 4"
+  neurone5: "Neurone 5"
+}
 
-client2 -> server: Requête
-server -> database: Requête
-database -> server: Réponse
-server -> client2: Réponse
+sortie: {
+  neurone6: "Neurone 6"
+}
+
+entrée.neurone1 -> cachée.neurone4
+entrée.neurone1 -> cachée.neurone5
+entrée.neurone2 -> cachée.neurone4
+entrée.neurone2 -> cachée.neurone5
+entrée.neurone3 -> cachée.neurone4
+entrée.neurone3 -> cachée.neurone5
+cachée.neurone4 -> sortie.neurone6
+cachée.neurone5 -> sortie.neurone6

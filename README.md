@@ -34,6 +34,9 @@ dotenv	: Gestion sécurisée des clés API
 
 # Exécution du pipeline
 
+Créer un .env à l'image de .env.example dans lequel il faut renseigner la clef api (MISTRAL_API_KEY=ta_cle_ici)
+
+
 node pipeline.js "Deux clients parlent à un serveur et une base de données"
 
 (On peut changer de prompt)
