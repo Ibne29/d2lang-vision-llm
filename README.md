@@ -3,22 +3,28 @@
 # Objectif du projet
 
 Ce projet met en œuvre un pipeline intelligent capable de générer automatiquement des diagrammes D2 à partir d’un prompt utilisateur en langage naturel.
-Le pipeline utilise un modèle de langage Mistral (codestral) et un RAG (Retrieval-Augmented Generation) alimenté par la documentation officielle de D2lang.
-L’objectif est de démontrer comment un LLM peut:
 
--comprendre une description textuelle (prompt),
+Le pipeline utilise un modèle de langage Mistral (Codestral) et un RAG (Retrieval-Augmented Generation) alimenté par la documentation officielle de D2lang.
+Il intègre également un modèle Vision LLM (Pixtral) pour vérifier automatiquement la cohérence visuelle entre le texte et le diagramme généré.
 
--générer un code D2 valide,
+# Le pipeline permet de : 
 
--compiler ce code en image (.png),
+🧠 comprendre une description textuelle (prompt),
 
--se corriger automatiquement en cas d’erreur,
+🧩 générer un code D2 valide,
 
--itérer jusqu’à produire un résultat exploitable
+⚙️ compiler ce code en image (.png),
+
+👁️ analyser l’image générée avec un modèle vision (Pixtral),
+
+🔍 mesurer la similarité sémantique texte/image via embeddings,
+
+🔁 se corriger et itérer automatiquement jusqu’à obtenir un résultat cohérent.
 
 
 
 # Technologies utilisées
+
 
 Node.js	: Environnement d’exécution du pipeline
 
@@ -30,9 +36,10 @@ RAG (via fetch)	: Téléchargement de la documentation officielle D2
 
 dotenv	: Gestion sécurisée des clés API
 
+HTML / JavaScript / CSS
 
 
-# Exécution du pipeline
+# Exécution du pipeline (dans le terminal) :
 
 Créer un .env à l'image de .env.example dans lequel il faut renseigner la clef api (MISTRAL_API_KEY=ta_cle_ici)
 
@@ -42,6 +49,28 @@ node pipeline.js "Deux clients parlent à un serveur et une base de données"
 (On peut changer de prompt)
 
 # Produit 
+
 un fichier diagram.d2 avec le code généré,
 
 une image diagram.png avec le diagramme compilé.
+
+
+
+# Interface web temps réel
+
+Une application web permet de visualiser les logs, les itérations et les images générées en direct.
+
+Lancer le serveur:
+
+node server.js
+
+
+# Fonctionnalités :
+
+Saisie du prompt depuis le navigateur
+
+Logs du pipeline affichés en direct 
+
+Images des différentes itérations affichées au fur et à mesure
+
+Arrêt automatique une fois qu’un diagramme cohérent est obtenu
