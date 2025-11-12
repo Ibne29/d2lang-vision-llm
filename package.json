@@ -1,11 +1,16 @@
 {
   "dependencies": {
     "@mistralai/mistralai": "^1.10.0",
+    "@xenova/transformers": "^2.17.2",
+    "cors": "^2.8.5",
     "curl": "^0.1.4",
     "d2": "^31.10.2",
     "dotenv": "^17.2.3",
+    "express": "^5.1.0",
     "go": "^3.0.1",
-    "openai": "^6.2.0"
+    "node-fetch": "^3.3.2",
+    "openai": "^6.8.1",
+    "tesseract.js": "^6.0.1"
   },
   "name": "projet_cp",
   "version": "1.0.0",

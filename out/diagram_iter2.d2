@@ -1,0 +1,63 @@
+auth: Authentification {
+  shape: hexagon
+  style: {
+    fill: "#FFD700"
+  }
+}
+
+orders: Commandes {
+  shape: hexagon
+  style: {
+    fill: "#90EE90"
+  }
+}
+
+payments: Paiements {
+  shape: hexagon
+  style: {
+    fill: "#ADD8E6"
+  }
+}
+
+auth-db: Auth DB {
+  shape: cylinder
+  style: {
+    fill: "#FFD700"
+  }
+}
+
+orders-db: Orders DB {
+  shape: cylinder
+  style: {
+    fill: "#90EE90"
+  }
+}
+
+payments-db: Payments DB {
+  shape: cylinder
+  style: {
+    fill: "#ADD8E6"
+  }
+}
+
+client: Client {
+  shape: person
+  style: {
+    fill: "#FFA07A"
+  }
+}
+
+api-gateway: API Gateway {
+  shape: hexagon
+  style: {
+    fill: "#D3D3D3"
+  }
+}
+
+client -> api-gateway: Requêtes
+api-gateway -> auth: Authentification
+api-gateway -> orders: Commandes
+api-gateway -> payments: Paiements
+auth -> auth-db: Requêtes
+orders -> orders-db: Requêtes
+payments -> payments-db: Requêtes

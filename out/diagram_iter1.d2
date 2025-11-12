@@ -1,0 +1,29 @@
+auth: Authentification {
+  db: Base de données
+}
+
+orders: Commandes {
+  db: Base de données
+}
+
+payments: Paiements {
+  db: Base de données
+}
+
+api-gateway: API Gateway {
+  auth: Authentification
+  orders: Commandes
+  payments: Paiements
+}
+
+client: Client {
+  api-gateway: API Gateway
+}
+
+auth.db -> auth: Base de données
+orders.db -> orders: Base de données
+payments.db -> payments: Base de données
+api-gateway.auth -> auth: Authentification
+api-gateway.orders -> orders: Commandes
+api-gateway.payments -> payments: Paiements
+client.api-gateway -> api-gateway: API Gateway

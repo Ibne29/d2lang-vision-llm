@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pipeline D2Lang + Vision LLM</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+        background: #f5f5f5;
+      }
+      input {
+        width: 70%;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+      }
+      button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        background: #007bff;
+        color: white;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      pre {
+        background: #000;
+        color: #0f0;
+        padding: 10px;
+        border-radius: 6px;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+      .card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        text-align: center;
+      }
+      .card img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 6px;
+      }
+      .iter-label {
+        font-weight: bold;
+        margin-bottom: 6px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🧩 Pipeline D2Lang + Vision LLM</h1>
+    <div>
+      <input id="prompt" placeholder="Ex : un professeur et deux élèves..." />
+      <button onclick="runPipeline()">Lancer</button>
+    </div>
+
+    <h3>Logs (en direct)</h3>
+    <pre id="logs"></pre>
+
+    <h3>Images générées</h3>
+    <div id="images" class="grid"></div>
+
+    <script>
+    let eventSource;
+
+    function escapeHTML(s) {
+      return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+
+    function runPipeline() {
+      const prompt = document.getElementById("prompt").value.trim();
+      if (!prompt) return alert("Veuillez saisir un prompt !");
+      const logs = document.getElementById("logs");
+      const images = document.getElementById("images");
+      logs.textContent = "";
+      images.innerHTML = "";
+
+      if (eventSource) eventSource.close();
+      eventSource = new EventSource(`/logs?prompt=${encodeURIComponent(prompt)}`);
+
+      eventSource.onmessage = (e) => {
+        const data = e.data;
+
+        if (data === "[END]") {
+          logs.innerHTML += `<span style="color:#9cf">✅ Pipeline terminé !</span><br>`;
+          logs.scrollTop = logs.scrollHeight;
+          eventSource.close();
+          return;
+        }
+
+        if (data.startsWith("IMAGE:")) {
+          const { iter, file } = JSON.parse(data.replace("IMAGE:", ""));
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <div class="iter-label">Itération ${iter}</div>
+            <img src="${file}?t=${Date.now()}" alt="Diagramme ${iter}">
+          `;
+          images.appendChild(card);
+          return;
+        }
+
+        // Coloration simple selon le type de ligne
+        let color = "#0f0"; // normal
+        if (data.startsWith("ERR:")) color = "#f55";
+        else if (data.startsWith("WARN:")) color = "#fc3";
+        else if (data.includes("Itération")) color = "#0cf";
+
+        logs.innerHTML += `<span style="color:${color}">${escapeHTML(data)}</span><br>`;
+        logs.scrollTop = logs.scrollHeight;
+      };
+
+      eventSource.onerror = (err) => {
+        logs.innerHTML += `<span style="color:#f55">[SSE error]</span><br>`;
+        eventSource.close();
+      };
+    }
+  </script>
+
+  </body>
+</html>
