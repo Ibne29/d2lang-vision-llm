@@ -1,15 +1,82 @@
-professeur: Professeur {
-  shape: oval
+direction: right
+
+Alice: {
+  shape: person
+  label: Alice
 }
 
-eleve1: Élève 1
-eleve2: Élève 2
-eleve3: Élève 3
-eleve4: Élève 4
-eleve5: Élève 5
+Bob: {
+  shape: person
+  label: Bob
+}
 
-professeur -> eleve1: enseigne
-professeur -> eleve2: enseigne
-professeur -> eleve3: enseigne
-professeur -> eleve4: enseigne
-professeur -> eleve5: enseigne
+Charlie: {
+  shape: person
+  label: Charlie
+}
+
+Diana: {
+  shape: person
+  label: Diana
+}
+
+Eve: {
+  shape: person
+  label: Eve
+}
+
+Alice -> Bob: {
+  label: ami
+  style: {
+    stroke: green
+    stroke-width: 2
+  }
+}
+
+Alice -> Charlie: {
+  label: collaborateur
+  style: {
+    stroke: blue
+    stroke-width: 2
+  }
+}
+
+Bob -> Charlie: {
+  label: ami
+  style: {
+    stroke: green
+    stroke-width: 2
+  }
+}
+
+Bob -> Diana: {
+  label: collaborateur
+  style: {
+    stroke: blue
+    stroke-width: 2
+  }
+}
+
+Charlie -> Diana: {
+  label: ami
+  style: {
+    stroke: green
+    stroke-width: 2
+  }
+}
+
+Charlie -> Eve: {
+  label: collaborateur
+  style: {
+    stroke: blue
+    stroke-width: 2
+  }
+}
+
+Diana -> Eve: {
+  label: ami
+  style: {
+    stroke: green
+    stroke-width: 2
+  }
+}

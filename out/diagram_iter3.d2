@@ -1,168 +1,47 @@
-direction: right
-
-entrée: {
-  shape: circle
-  width: 20
-  height: 20
-  style.stroke: blue
-  style.fill: lightblue
+api-gateway: {
+  shape: rectangle
+  label: "API Gateway"
 }
 
-cachée: {
-  shape: circle
-  width: 20
-  height: 20
-  style.stroke: green
-  style.fill: lightgreen
+auth-service: {
+  shape: rectangle
+  label: "Auth Service"
 }
 
-sortie: {
-  shape: circle
-  width: 20
-  height: 20
-  style.stroke: red
-  style.fill: lightcoral
+orders-service: {
+  shape: rectangle
+  label: "Orders Service"
 }
 
-entrée1: entrée
-entrée2: entrée
-entrée3: entrée
-entrée4: entrée
-
-cachée1: cachée
-cachée2: cachée
-cachée3: cachée
-cachée4: cachée
-cachée5: cachée
-
-sortie1: sortie
-sortie2: sortie
-
-entrée1 -> cachée1: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée1 -> cachée2: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée1 -> cachée3: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée1 -> cachée4: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée1 -> cachée5: {
-  style.stroke: blue
-  style.stroke-width: 2
+payments-service: {
+  shape: rectangle
+  label: "Payments Service"
 }
 
-entrée2 -> cachée1: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée2 -> cachée2: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée2 -> cachée3: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée2 -> cachée4: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée2 -> cachée5: {
-  style.stroke: blue
-  style.stroke-width: 2
+auth-db: {
+  shape: cylinder
+  label: "Auth DB"
 }
 
-entrée3 -> cachée1: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée3 -> cachée2: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée3 -> cachée3: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée3 -> cachée4: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée3 -> cachée5: {
-  style.stroke: blue
-  style.stroke-width: 2
+orders-db: {
+  shape: cylinder
+  label: "Orders DB"
 }
 
-entrée4 -> cachée1: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée4 -> cachée2: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée4 -> cachée3: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée4 -> cachée4: {
-  style.stroke: blue
-  style.stroke-width: 2
-}
-entrée4 -> cachée5: {
-  style.stroke: blue
-  style.stroke-width: 2
+payments-db: {
+  shape: cylinder
+  label: "Payments DB"
 }
 
-cachée1 -> sortie1: {
-  style.stroke: red
-  style.stroke-width: 2
-}
-cachée1 -> sortie2: {
-  style.stroke: red
-  style.stroke-width: 2
+client: {
+  shape: person
+  label: "Client"
 }
 
-cachée2 -> sortie1: {
-  style.stroke: red
-  style.stroke-width: 2
-}
-cachée2 -> sortie2: {
-  style.stroke: red
-  style.stroke-width: 2
-}
-
-cachée3 -> sortie1: {
-  style.stroke: red
-  style.stroke-width: 2
-}
-cachée3 -> sortie2: {
-  style.stroke: red
-  style.stroke-width: 2
-}
-
-cachée4 -> sortie1: {
-  style.stroke: red
-  style.stroke-width: 2
-}
-cachée4 -> sortie2: {
-  style.stroke: red
-  style.stroke-width: 2
-}
-
-cachée5 -> sortie1: {
-  style.stroke: red
-  style.stroke-width: 2
-}
-cachée5 -> sortie2: {
-  style.stroke: red
-  style.stroke-width: 2
-}
+client -> api-gateway: "Requests"
+api-gateway -> auth-service: "Auth Requests"
+api-gateway -> orders-service: "Order Requests"
+api-gateway -> payments-service: "Payment Requests"
+auth-service -> auth-db: "Storage"
+orders-service -> orders-db: "Storage"
+payments-service -> payments-db: "Storage"

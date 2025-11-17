@@ -1,3 +1,75 @@
-professeur: Professeur {
-    enseigne: [Élève 1, Élève 2, Élève 3, Élève 4, Élève 5]
+direction: right
+
+Alice: {
+  shape: person
+  label: Alice
+}
+
+Bob: {
+  shape: person
+  label: Bob
+}
+
+Charlie: {
+  shape: person
+  label: Charlie
+}
+
+Diana: {
+  shape: person
+  label: Diana
+}
+
+Eve: {
+  shape: person
+  label: Eve
+}
+
+Alice -> Bob: {
+  label: ami
+  style: {
+    stroke: blue
+  }
+}
+
+Alice -> Charlie: {
+  label: collaborateur
+  style: {
+    stroke: green
+  }
+}
+
+Bob -> Charlie: {
+  label: ami
+  style: {
+    stroke: blue
+  }
+}
+
+Bob -> Diana: {
+  label: collaborateur
+  style: {
+    stroke: green
+  }
+}
+
+Charlie -> Diana: {
+  label: ami
+  style: {
+    stroke: blue
+  }
+}
+
+Charlie -> Eve: {
+  label: collaborateur
+  style: {
+    stroke: green
+  }
+}
+
+Diana -> Eve: {
+  label: ami
+  style: {
+    stroke: blue
+  }
 }

@@ -1,63 +1,50 @@
-auth: Authentification {
-  shape: hexagon
-  style: {
-    fill: "#FFD700"
-  }
+direction: right
+
+# Pipeline de documentation et de visualisation
+
+## Entrée
+Texte d'entrée: {
+  shape: text
 }
 
-orders: Commandes {
-  shape: hexagon
-  style: {
-    fill: "#90EE90"
-  }
+## Codestral
+Texte d'entrée -> Codestral: {
+  shape: oval
+  label: "Modèle de langage Mistral"
 }
 
-payments: Paiements {
-  shape: hexagon
-  style: {
-    fill: "#ADD8E6"
-  }
+## RAG
+Codestral -> RAG: {
+  shape: oval
+  label: "RAG (Documentation D2lang)"
 }
 
-auth-db: Auth DB {
-  shape: cylinder
-  style: {
-    fill: "#FFD700"
-  }
+## Documentation
+RAG -> Documentation: {
+  shape: oval
+  label: "Documentation D2lang"
 }
 
-orders-db: Orders DB {
-  shape: cylinder
-  style: {
-    fill: "#90EE90"
-  }
+## Diagramme général
+Codestral -> Diagramme général: {
+  shape: oval
+  label: "Diagramme général"
 }
 
-payments-db: Payments DB {
-  shape: cylinder
-  style: {
-    fill: "#ADD8E6"
-  }
+## Pixtral
+Diagramme général -> Pixtral: {
+  shape: oval
+  label: "Modèle Vision LLM (Pixtral)"
 }
 
-client: Client {
-  shape: person
-  style: {
-    fill: "#FFA07A"
-  }
+## Feedback visuel
+Pixtral -> Feedback visuel: {
+  shape: oval
+  label: "Feedback visuel"
 }
 
-api-gateway: API Gateway {
-  shape: hexagon
-  style: {
-    fill: "#D3D3D3"
-  }
+## Diagramme visuel
+Diagramme général -> Diagramme visuel: {
+  shape: oval
+  label: "Diagramme visuel"
 }
-
-client -> api-gateway: Requêtes
-api-gateway -> auth: Authentification
-api-gateway -> orders: Commandes
-api-gateway -> payments: Paiements
-auth -> auth-db: Requêtes
-orders -> orders-db: Requêtes
-payments -> payments-db: Requêtes

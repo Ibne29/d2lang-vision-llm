@@ -1,29 +1,66 @@
-auth: Authentification {
-  db: Base de données
+direction: right
+
+# Pipeline de génération de diagrammes avec D2lang
+
+# Modèle de langage Mistral (Codestral)
+mistral: {
+  shape: oval
+  label: "Mistral (Codestral)"
+  style: {
+    fill: "#f0f0f0"
+    stroke: "#333"
+    stroke-width: 2
+  }
 }
 
-orders: Commandes {
-  db: Base de données
+# RAG avec documentation officielle D2lang
+rag: {
+  shape: cylinder
+  label: "RAG\nDocumentation D2lang"
+  style: {
+    fill: "#e0e0ff"
+    stroke: "#333"
+    stroke-width: 2
+  }
 }
 
-payments: Paiements {
-  db: Base de données
+# Modèle Vision LLM (Pixtral)
+pixtral: {
+  shape: oval
+  label: "Pixtral\n(Modèle Vision LLM)"
+  style: {
+    fill: "#ffebcc"
+    stroke: "#333"
+    stroke-width: 2
+  }
 }
 
-api-gateway: API Gateway {
-  auth: Authentification
-  orders: Commandes
-  payments: Paiements
+# Entrée de texte
+texte: {
+  shape: document
+  label: "Texte d'entrée"
+  style: {
+    fill: "#e6ffe6"
+    stroke: "#333"
+    stroke-width: 2
+  }
 }
 
-client: Client {
-  api-gateway: API Gateway
+# Diagramme généré
+diagramme: {
+  shape: document
+  label: "Diagramme généré"
+  style: {
+    fill: "#e6ffe6"
+    stroke: "#333"
+    stroke-width: 2
+  }
 }
 
-auth.db -> auth: Base de données
-orders.db -> orders: Base de données
-payments.db -> payments: Base de données
-api-gateway.auth -> auth: Authentification
-api-gateway.orders -> orders: Commandes
-api-gateway.payments -> payments: Paiements
-client.api-gateway -> api-gateway: API Gateway
+# Flèches de connexion
+texte -> mistral: "Génération de texte"
+mistral -> rag: "Alimentation RAG"
+rag -> mistral: "Réponse augmentée"
+mistral -> diagramme: "Génération de diagramme"
+diagramme -> pixtral: "Vérification visuelle"
+pixtral -> diagramme: "Feedback visuel"
