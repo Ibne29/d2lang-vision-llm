@@ -1,82 +1,90 @@
 direction: right
 
-Alice: {
-  shape: person
-  label: Alice
-}
+# Pipeline de génération de diagrammes D2
 
-Bob: {
-  shape: person
-  label: Bob
-}
-
-Charlie: {
-  shape: person
-  label: Charlie
-}
-
-Diana: {
-  shape: person
-  label: Diana
-}
-
-Eve: {
-  shape: person
-  label: Eve
-}
-
-Alice -> Bob: {
-  label: ami
+## Modèle de langage Mistral (Codestral)
+codestral: {
+  shape: rectangle
+  label: "Modèle de langage\nMistral (Codestral)"
   style: {
-    stroke: green
+    fill: "#f0f8ff"
+    stroke: "#4682b4"
     stroke-width: 2
   }
 }
 
-Alice -> Charlie: {
-  label: collaborateur
+## RAG avec documentation officielle D2lang
+rag: {
+  shape: cylinder
+  label: "RAG avec documentation\nofficielle D2lang"
   style: {
-    stroke: blue
+    fill: "#e6e6fa"
+    stroke: "#9370db"
     stroke-width: 2
   }
 }
 
-Bob -> Charlie: {
-  label: ami
+## Modèle Vision LLM (Pixtral)
+pixtral: {
+  shape: hexagon
+  label: "Modèle Vision LLM\n(Pixtral)"
   style: {
-    stroke: green
+    fill: "#fff0f5"
+    stroke: "#ff69b4"
     stroke-width: 2
   }
 }
 
-Bob -> Diana: {
-  label: collaborateur
+## Entrée utilisateur
+entree: {
+  shape: parallelogram
+  label: "Entrée utilisateur\n(texte D2)"
   style: {
-    stroke: blue
+    fill: "#f5f5dc"
+    stroke: "#8b4513"
     stroke-width: 2
   }
 }
 
-Charlie -> Diana: {
-  label: ami
+## Diagramme généré
+diagramme: {
+  shape: rectangle
+  label: "Diagramme généré"
   style: {
-    stroke: green
+    fill: "#e0ffff"
+    stroke: "#00ced1"
     stroke-width: 2
   }
 }
 
-Charlie -> Eve: {
-  label: collaborateur
+## Vérification visuelle
+verification: {
+  shape: diamond
+  label: "Vérification visuelle"
   style: {
-    stroke: blue
+    fill: "#f0fff0"
+    stroke: "#32cd32"
     stroke-width: 2
   }
 }
 
-Diana -> Eve: {
-  label: ami
+## Sortie finale
+sortie: {
+  shape: parallelogram
+  label: "Sortie finale\n(diagramme validé)"
   style: {
-    stroke: green
+    fill: "#f5f5dc"
+    stroke: "#8b4513"
     stroke-width: 2
   }
 }
+
+# Connexions
+entree -> codestral: "Texte D2"
+codestral -> rag: "Requête"
+rag -> codestral: "Contexte enrichi"
+codestral -> diagramme: "Génération"
+diagramme -> pixtral: "Image générée"
+pixtral -> verification: "Analyse"
+verification -> diagramme: "Retour si incohérent"
+verification -> sortie: "Validation"

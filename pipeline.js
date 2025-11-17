@@ -20,7 +20,7 @@ async function fetchD2Doc() {
     const res = await fetch("https://d2lang.com/tour/intro");
     const html = await res.text();
     console.log("✅ Documentation récupérée !");
-    return html.slice(0, 5000);
+    return html;
   } catch (err) {
     console.warn("⚠️ Impossible de récupérer la doc D2 :", err);
     return "";

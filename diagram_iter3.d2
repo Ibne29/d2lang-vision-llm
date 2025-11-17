@@ -1,0 +1,32 @@
+direction: right
+
+# Pipeline de génération de diagrammes D2
+
+# Modèle de langage Mistral (Codestral)
+mistral: {
+  shape: oval
+  label: "Modèle de langage Mistral (Codestral)"
+}
+
+# RAG avec documentation officielle de D2lang
+rag: {
+  shape: oval
+  label: "RAG avec documentation officielle de D2lang"
+}
+
+# Modèle Vision LLM (Pixtral)
+pixtral: {
+  shape: oval
+  label: "Modèle Vision LLM (Pixtral)"
+}
+
+# Diagramme généré
+diagram: {
+  shape: rectangle
+  label: "Diagramme généré"
+}
+
+# Connexions
+mistral -> rag: "Génération de texte"
+rag -> pixtral: "Vérification de cohérence visuelle"
+pixtral -> diagram: "Validation et génération finale"

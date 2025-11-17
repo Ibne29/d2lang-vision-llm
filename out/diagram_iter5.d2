@@ -1,75 +1,125 @@
 direction: right
 
-Alice: {
-  shape: person
-  label: Alice
+# Pipeline de gestion des risques
+
+## Saisie collaborative (Tableur #2)
+shape: document
+style.fill: "#f9f9f9"
+style.stroke: "#333"
+style.stroke-width: 2
+
+## Modèle de lacunes du matériel (Calculé)
+shape: rectangle
+style.fill: "#e6f7ff"
+style.stroke: "#1890ff"
+style.stroke-width: 2
+
+## Risque après documentation officiels (Sélectionné)
+shape: ellipse
+style.fill: "#fff2e8"
+style.stroke: "#fa8c16"
+style.stroke-width: 2
+
+## Diagramme de Gantt
+shape: document
+style.fill: "#f6ffed"
+style.stroke: "#52c41a"
+style.stroke-width: 2
+
+## Modèle global LL (Sélectionné)
+shape: rectangle
+style.fill: "#fff0f6"
+style.stroke: "#eb2f96"
+style.stroke-width: 2
+
+## Utilisation finale
+shape: document
+style.fill: "#f0f5ff"
+style.stroke: "#1890ff"
+style.stroke-width: 2
+
+## Sortie finale (Document #3)
+shape: document
+style.fill: "#f9f9f9"
+style.stroke: "#333"
+style.stroke-width: 2
+
+# Connections
+Saisie collaborative -> Modèle de lacunes du matériel: {
+  label: "Alimente"
+  style.stroke-dash: 3
+  style.stroke: "#1890ff"
 }
 
-Bob: {
-  shape: person
-  label: Bob
+Modèle de lacunes du matériel -> Risque après documentation officiels: {
+  label: "Conduit à"
+  style.stroke-dash: 3
+  style.stroke: "#fa8c16"
 }
 
-Charlie: {
-  shape: person
-  label: Charlie
+Risque après documentation officiels -> Diagramme de Gantt: {
+  label: "Évalué par"
+  style.stroke-dash: 3
+  style.stroke: "#52c41a"
 }
 
-Diana: {
-  shape: person
-  label: Diana
+Diagramme de Gantt -> Modèle global LL: {
+  label: "Comparé à"
+  style.stroke-dash: 3
+  style.stroke: "#eb2f96"
 }
 
-Eve: {
-  shape: person
-  label: Eve
+Modèle global LL -> Utilisation finale: {
+  label: "Détermine"
+  style.stroke-dash: 3
+  style.stroke: "#1890ff"
 }
 
-Alice -> Bob: {
-  label: ami
-  style: {
-    stroke: blue
-  }
+Utilisation finale -> Sortie finale: {
+  label: "Menant à"
+  style.stroke-dash: 3
+  style.stroke: "#333"
 }
 
-Alice -> Charlie: {
-  label: collaborateur
-  style: {
-    stroke: green
-  }
+# Annotations
+Saisie collaborative: {
+  label: "Saisie collaborative (Tableur #2)"
+  style.font-size: 14
+  style.font-weight: bold
 }
 
-Bob -> Charlie: {
-  label: ami
-  style: {
-    stroke: blue
-  }
+Modèle de lacunes du matériel: {
+  label: "Modèle de lacunes du matériel (Calculé)"
+  style.font-size: 14
+  style.font-weight: bold
 }
 
-Bob -> Diana: {
-  label: collaborateur
-  style: {
-    stroke: green
-  }
+Risque après documentation officiels: {
+  label: "Risque après documentation officiels (Sélectionné)"
+  style.font-size: 14
+  style.font-weight: bold
 }
 
-Charlie -> Diana: {
-  label: ami
-  style: {
-    stroke: blue
-  }
+Diagramme de Gantt: {
+  label: "Diagramme de Gantt"
+  style.font-size: 14
+  style.font-weight: bold
 }
 
-Charlie -> Eve: {
-  label: collaborateur
-  style: {
-    stroke: green
-  }
+Modèle global LL: {
+  label: "Modèle global LL (Sélectionné)"
+  style.font-size: 14
+  style.font-weight: bold
 }
 
-Diana -> Eve: {
-  label: ami
-  style: {
-    stroke: blue
-  }
+Utilisation finale: {
+  label: "Utilisation finale"
+  style.font-size: 14
+  style.font-weight: bold
+}
+
+Sortie finale: {
+  label: "Sortie finale (Document #3)"
+  style.font-size: 14
+  style.font-weight: bold
 }

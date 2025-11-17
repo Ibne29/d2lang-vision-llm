@@ -1,47 +1,75 @@
-api-gateway: {
+direction: right
+
+# Pipeline de traduction automatique de documents médicaux
+pipeline: {
   shape: rectangle
-  label: "API Gateway"
+  style.stroke: blue
+  style.fill: lightblue
+  style.stroke-width: 2
 }
 
-auth-service: {
-  shape: rectangle
-  label: "Auth Service"
+# Modèles de langage pré-entraînés (LLM)
+llm: {
+  shape: ellipse
+  style.stroke: green
+  style.fill: lightgreen
+  style.stroke-width: 2
+  label: "Modèles de langage pré-entraînés (LLM)"
 }
 
-orders-service: {
-  shape: rectangle
-  label: "Orders Service"
+# Techniques de post-traitement
+post_processing: {
+  shape: ellipse
+  style.stroke: orange
+  style.fill: lightorange
+  style.stroke-width: 2
+  label: "Techniques de post-traitement"
 }
 
-payments-service: {
-  shape: rectangle
-  label: "Payments Service"
+# Évaluations humaines
+human_evaluation: {
+  shape: ellipse
+  style.stroke: purple
+  style.fill: lightpurple
+  style.stroke-width: 2
+  label: "Évaluations humaines"
 }
 
-auth-db: {
-  shape: cylinder
-  label: "Auth DB"
+# Flux de processus
+pipeline -> llm: "Générer des traductions initiales"
+llm -> post_processing: "Améliorer les traductions"
+post_processing -> human_evaluation: "Évaluer la qualité des traductions"
+human_evaluation -> pipeline: "Feedback pour amélioration continue"
+
+# Modèle de langage Mistral (Codestral)
+mistral: {
+  shape: ellipse
+  style.stroke: darkblue
+  style.fill: lightblue
+  style.stroke-width: 2
+  label: "Modèle de langage Mistral (Codestral)"
 }
 
-orders-db: {
-  shape: cylinder
-  label: "Orders DB"
+# RAG alimenté par la documentation officielle de D2lang
+rag: {
+  shape: ellipse
+  style.stroke: darkgreen
+  style.fill: lightgreen
+  style.stroke-width: 2
+  label: "RAG alimenté par la documentation officielle de D2lang"
 }
 
-payments-db: {
-  shape: cylinder
-  label: "Payments DB"
+# Modèle Vision LLM (Pixtral)
+vision_llm: {
+  shape: ellipse
+  style.stroke: darkorange
+  style.fill: lightorange
+  style.stroke-width: 2
+  label: "Modèle Vision LLM (Pixtral)"
 }
 
-client: {
-  shape: person
-  label: "Client"
-}
-
-client -> api-gateway: "Requests"
-api-gateway -> auth-service: "Auth Requests"
-api-gateway -> orders-service: "Order Requests"
-api-gateway -> payments-service: "Payment Requests"
-auth-service -> auth-db: "Storage"
-orders-service -> orders-db: "Storage"
-payments-service -> payments-db: "Storage"
+# Flux de processus pour le pipeline de traduction
+pipeline -> mistral: "Utiliser le modèle de langage Mistral (Codestral)"
+mistral -> rag: "Alimenter le RAG avec la documentation officielle de D2lang"
+rag -> vision_llm: "Vérifier la cohérence visuelle avec le modèle Vision LLM (Pixtral)"
+vision_llm -> pipeline: "Feedback pour amélioration continue"

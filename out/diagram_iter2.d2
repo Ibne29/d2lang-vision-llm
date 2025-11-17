@@ -1,50 +1,66 @@
 direction: right
 
-# Pipeline de documentation et de visualisation
+# Pipeline de génération de diagrammes D2
 
-## Entrée
-Texte d'entrée: {
-  shape: text
+## Modèle de langage Mistral (Codestral)
+Mistral: {
+  shape: rectangle
+  style: {
+    fill: "#f0f8ff"
+    stroke: "#4682b4"
+    stroke-width: 2
+  }
+  label: "Modèle de langage Mistral (Codestral)"
 }
 
-## Codestral
-Texte d'entrée -> Codestral: {
-  shape: oval
-  label: "Modèle de langage Mistral"
+## RAG avec documentation officielle D2lang
+RAG: {
+  shape: cylinder
+  style: {
+    fill: "#e6e6fa"
+    stroke: "#9370db"
+    stroke-width: 2
+  }
+  label: "RAG avec documentation officielle D2lang"
 }
 
-## RAG
-Codestral -> RAG: {
-  shape: oval
-  label: "RAG (Documentation D2lang)"
-}
-
-## Documentation
-RAG -> Documentation: {
-  shape: oval
-  label: "Documentation D2lang"
-}
-
-## Diagramme général
-Codestral -> Diagramme général: {
-  shape: oval
-  label: "Diagramme général"
-}
-
-## Pixtral
-Diagramme général -> Pixtral: {
-  shape: oval
+## Modèle Vision LLM (Pixtral)
+Pixtral: {
+  shape: hexagon
+  style: {
+    fill: "#fff0f5"
+    stroke: "#db7093"
+    stroke-width: 2
+  }
   label: "Modèle Vision LLM (Pixtral)"
 }
 
-## Feedback visuel
-Pixtral -> Feedback visuel: {
-  shape: oval
-  label: "Feedback visuel"
+## Flux de travail
+Mistral -> RAG: {
+  label: "Génération de texte"
+  style: {
+    stroke: "#4682b4"
+    stroke-dash: 5
+  }
 }
 
-## Diagramme visuel
-Diagramme général -> Diagramme visuel: {
-  shape: oval
-  label: "Diagramme visuel"
+RAG -> Pixtral: {
+  label: "Vérification visuelle"
+  style: {
+    stroke: "#9370db"
+    stroke-dash: 5
+  }
 }
+
+Pixtral -> Mistral: {
+  label: "Feedback"
+  style: {
+    stroke: "#db7093"
+    stroke-dash: 5
+  }
+}
+
+# Connections
+Mistral -> RAG: Génère du texte basé sur la documentation D2lang
+RAG -> Pixtral: Vérifie la cohérence visuelle entre le texte et le diagramme généré
+Pixtral -> Mistral: Fournit des feedbacks pour améliorer la génération de texte

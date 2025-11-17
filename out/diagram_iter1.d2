@@ -1,11 +1,8 @@
 direction: right
 
-# Pipeline de génération de diagrammes avec D2lang
-
-# Modèle de langage Mistral (Codestral)
-mistral: {
-  shape: oval
-  label: "Mistral (Codestral)"
+pipeline: {
+  shape: rectangle
+  label: "Pipeline de génération de diagrammes D2"
   style: {
     fill: "#f0f0f0"
     stroke: "#333"
@@ -13,54 +10,93 @@ mistral: {
   }
 }
 
-# RAG avec documentation officielle D2lang
-rag: {
-  shape: cylinder
-  label: "RAG\nDocumentation D2lang"
+mistral_model: {
+  shape: rectangle
+  label: "Modèle Mistral (Codestral)"
   style: {
-    fill: "#e0e0ff"
-    stroke: "#333"
+    fill: "#e6f7ff"
+    stroke: "#1890ff"
     stroke-width: 2
   }
 }
 
-# Modèle Vision LLM (Pixtral)
-pixtral: {
-  shape: oval
-  label: "Pixtral\n(Modèle Vision LLM)"
+pixtral_model: {
+  shape: rectangle
+  label: "Modèle Vision LLM (Pixtral)"
   style: {
-    fill: "#ffebcc"
-    stroke: "#333"
+    fill: "#fff2e6"
+    stroke: "#fa8c16"
     stroke-width: 2
   }
 }
 
-# Entrée de texte
-texte: {
-  shape: document
+rag_system: {
+  shape: rectangle
+  label: "Système RAG"
+  style: {
+    fill: "#f6ffed"
+    stroke: "#52c41a"
+    stroke-width: 2
+  }
+}
+
+d2_docs: {
+  shape: rectangle
+  label: "Documentation officielle D2lang"
+  style: {
+    fill: "#fff0f6"
+    stroke: "#eb2f96"
+    stroke-width: 2
+  }
+}
+
+text_input: {
+  shape: rectangle
   label: "Texte d'entrée"
   style: {
-    fill: "#e6ffe6"
-    stroke: "#333"
+    fill: "#f0f5ff"
+    stroke: "#1890ff"
     stroke-width: 2
   }
 }
 
-# Diagramme généré
-diagramme: {
-  shape: document
-  label: "Diagramme généré"
+diagram_output: {
+  shape: rectangle
+  label: "Diagramme D2 généré"
   style: {
-    fill: "#e6ffe6"
-    stroke: "#333"
+    fill: "#f0f5ff"
+    stroke: "#1890ff"
     stroke-width: 2
   }
 }
 
-# Flèches de connexion
-texte -> mistral: "Génération de texte"
-mistral -> rag: "Alimentation RAG"
-rag -> mistral: "Réponse augmentée"
-mistral -> diagramme: "Génération de diagramme"
-diagramme -> pixtral: "Vérification visuelle"
-pixtral -> diagramme: "Feedback visuel"
+visual_check: {
+  shape: rectangle
+  label: "Vérification visuelle"
+  style: {
+    fill: "#fff7e6"
+    stroke: "#faad14"
+    stroke-width: 2
+  }
+}
+
+feedback_loop: {
+  shape: rectangle
+  label: "Boucle de feedback"
+  style: {
+    fill: "#e6fffb"
+    stroke: "#5cdbd3"
+    stroke-width: 2
+  }
+}
+
+pipeline -> mistral_model: "Utilise"
+pipeline -> pixtral_model: "Utilise"
+pipeline -> rag_system: "Alimente"
+rag_system -> d2_docs: "Récupère des données"
+text_input -> pipeline: "Fournit"
+pipeline -> diagram_output: "Génère"
+diagram_output -> pixtral_model: "Analyse"
+pixtral_model -> visual_check: "Vérifie"
+visual_check -> feedback_loop: "Retourne des résultats"
+feedback_loop -> pipeline: "Améliore"
