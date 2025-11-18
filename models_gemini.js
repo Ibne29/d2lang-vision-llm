@@ -1,4 +1,3 @@
-// list_modele.js
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 dotenv.config();
@@ -10,8 +9,6 @@ if (!apiKey) {
   process.exit(1);
 }
 
-// 1. L'URL correcte pour lister les modèles (API v1beta)
-// 2. La clé API est passée en paramètre "key"
 const url = `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`;
 
 async function listModels() {
@@ -29,19 +26,12 @@ async function listModels() {
     }
 
     const json = await res.json();
-
-    // 3. La structure de réponse de Google est { "models": [...] }
-    //    Et le nom du modèle est dans "m.name"
     console.log("📋 Modèles disponibles:");
     
     json.models.forEach(model => {
-      // m.name est l'identifiant (ex: "models/text-embedding-004")
-      // m.displayName est le nom lisible (ex: "Text Embedding 004")
       console.log(`- ${model.name} (${model.displayName})`);
     });
-
-    // Filtre pour trouver les modèles d'embedding
-    console.log("\n🧬 Modèles d'embedding (ceux que vous cherchiez) :");
+    console.log("\n🧬 Modèles d'embedding :");
     const embeddingModels = json.models.filter(m => 
         m.name.includes("embedding") && m.supportedGenerationMethods.includes("embedContent")
     );

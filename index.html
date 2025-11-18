@@ -136,7 +136,7 @@ const logOutput = document.getElementById("logOutput");
 const iterationsOutput = document.getElementById("iterationsOutput");
 
 /* -------------------------------------------------------
-   🚀 Démarrage du pipeline
+   Démarrage du pipeline
 ------------------------------------------------------- */
 function startPipeline() {
     if (eventSource) eventSource.close();
@@ -235,7 +235,7 @@ function startPipeline() {
 }
 
 /* -------------------------------------------------------
-   📝 Ajout d'une ligne de log dans l’UI
+    Ajout d'une ligne de log dans l’UI
 ------------------------------------------------------- */
 function appendLog(text, className = "log-entry") {
     const p = document.createElement("p");
@@ -246,7 +246,7 @@ function appendLog(text, className = "log-entry") {
 }
 
 /* -------------------------------------------------------
-   🖼️ Création ou mise à jour d’une carte d’itération
+   Création ou mise à jour d’une carte d’itération
 ------------------------------------------------------- */
 function displayIteration(iter, filePath) {
     const id = `iteration-card-${iter}`;

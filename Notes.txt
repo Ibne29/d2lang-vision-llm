@@ -1,10 +1,9 @@
 On va utiliser openai comme llm vision, capable de lire une image et d'en donner une description. 
-On cherche à transformer une image en embedding. Le problème est que Openai n'a pas cette fonction (celle de transformer directement une image en embedding). 
-C'est pourquoi on doit d'abord transformer l'image en texte descriptif de celle-ci puis transformer ce texte qui decrit l'image en embedding qu'on va ensuite 
+On cherche à transformer une image en embedding. C'est pourquoi on doit d'abord transformer l'image en texte descriptif de celle-ci puis transformer ce texte qui decrit l'image en embedding qu'on va ensuite 
 comparer à l'embedding du texte de prompt.
 
 
-📋 Modèles disponibles de mistral:
+ Modèles disponibles de mistral:
  [
   'mistral-medium-2505',
   'mistral-large-latest',
