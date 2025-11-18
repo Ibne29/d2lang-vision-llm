@@ -1,125 +1,72 @@
 direction: right
 
-# Pipeline de gestion des risques
+network: {
+  shape: rectangle
+  label: "Neural Network"
+  style.stroke: blue
+  style.fill: lightblue
 
-## Saisie collaborative (Tableur #2)
-shape: document
-style.fill: "#f9f9f9"
-style.stroke: "#333"
-style.stroke-width: 2
+  input_layer: {
+    shape: ellipse
+    label: "Input Layer"
+    style.stroke: green
+    style.fill: lightgreen
 
-## Modèle de lacunes du matériel (Calculé)
-shape: rectangle
-style.fill: "#e6f7ff"
-style.stroke: "#1890ff"
-style.stroke-width: 2
+    neuron1: "Neuron 1"
+    neuron2: "Neuron 2"
+    neuron3: "Neuron 3"
+    neuron4: "Neuron 4"
+  }
 
-## Risque après documentation officiels (Sélectionné)
-shape: ellipse
-style.fill: "#fff2e8"
-style.stroke: "#fa8c16"
-style.stroke-width: 2
+  hidden_layer: {
+    shape: ellipse
+    label: "Hidden Layer"
+    style.stroke: orange
+    style.fill: lightyellow
 
-## Diagramme de Gantt
-shape: document
-style.fill: "#f6ffed"
-style.stroke: "#52c41a"
-style.stroke-width: 2
+    neuron5: "Neuron 5"
+    neuron6: "Neuron 6"
+    neuron7: "Neuron 7"
+    neuron8: "Neuron 8"
+    neuron9: "Neuron 9"
+  }
 
-## Modèle global LL (Sélectionné)
-shape: rectangle
-style.fill: "#fff0f6"
-style.stroke: "#eb2f96"
-style.stroke-width: 2
+  output_layer: {
+    shape: ellipse
+    label: "Output Layer"
+    style.stroke: red
+    style.fill: pink
 
-## Utilisation finale
-shape: document
-style.fill: "#f0f5ff"
-style.stroke: "#1890ff"
-style.stroke-width: 2
+    neuron10: "Neuron 10"
+  }
 
-## Sortie finale (Document #3)
-shape: document
-style.fill: "#f9f9f9"
-style.stroke: "#333"
-style.stroke-width: 2
+  input_layer.neuron1 -> hidden_layer.neuron5
+  input_layer.neuron1 -> hidden_layer.neuron6
+  input_layer.neuron1 -> hidden_layer.neuron7
+  input_layer.neuron1 -> hidden_layer.neuron8
+  input_layer.neuron1 -> hidden_layer.neuron9
 
-# Connections
-Saisie collaborative -> Modèle de lacunes du matériel: {
-  label: "Alimente"
-  style.stroke-dash: 3
-  style.stroke: "#1890ff"
-}
+  input_layer.neuron2 -> hidden_layer.neuron5
+  input_layer.neuron2 -> hidden_layer.neuron6
+  input_layer.neuron2 -> hidden_layer.neuron7
+  input_layer.neuron2 -> hidden_layer.neuron8
+  input_layer.neuron2 -> hidden_layer.neuron9
 
-Modèle de lacunes du matériel -> Risque après documentation officiels: {
-  label: "Conduit à"
-  style.stroke-dash: 3
-  style.stroke: "#fa8c16"
-}
+  input_layer.neuron3 -> hidden_layer.neuron5
+  input_layer.neuron3 -> hidden_layer.neuron6
+  input_layer.neuron3 -> hidden_layer.neuron7
+  input_layer.neuron3 -> hidden_layer.neuron8
+  input_layer.neuron3 -> hidden_layer.neuron9
 
-Risque après documentation officiels -> Diagramme de Gantt: {
-  label: "Évalué par"
-  style.stroke-dash: 3
-  style.stroke: "#52c41a"
-}
+  input_layer.neuron4 -> hidden_layer.neuron5
+  input_layer.neuron4 -> hidden_layer.neuron6
+  input_layer.neuron4 -> hidden_layer.neuron7
+  input_layer.neuron4 -> hidden_layer.neuron8
+  input_layer.neuron4 -> hidden_layer.neuron9
 
-Diagramme de Gantt -> Modèle global LL: {
-  label: "Comparé à"
-  style.stroke-dash: 3
-  style.stroke: "#eb2f96"
-}
-
-Modèle global LL -> Utilisation finale: {
-  label: "Détermine"
-  style.stroke-dash: 3
-  style.stroke: "#1890ff"
-}
-
-Utilisation finale -> Sortie finale: {
-  label: "Menant à"
-  style.stroke-dash: 3
-  style.stroke: "#333"
-}
-
-# Annotations
-Saisie collaborative: {
-  label: "Saisie collaborative (Tableur #2)"
-  style.font-size: 14
-  style.font-weight: bold
-}
-
-Modèle de lacunes du matériel: {
-  label: "Modèle de lacunes du matériel (Calculé)"
-  style.font-size: 14
-  style.font-weight: bold
-}
-
-Risque après documentation officiels: {
-  label: "Risque après documentation officiels (Sélectionné)"
-  style.font-size: 14
-  style.font-weight: bold
-}
-
-Diagramme de Gantt: {
-  label: "Diagramme de Gantt"
-  style.font-size: 14
-  style.font-weight: bold
-}
-
-Modèle global LL: {
-  label: "Modèle global LL (Sélectionné)"
-  style.font-size: 14
-  style.font-weight: bold
-}
-
-Utilisation finale: {
-  label: "Utilisation finale"
-  style.font-size: 14
-  style.font-weight: bold
-}
-
-Sortie finale: {
-  label: "Sortie finale (Document #3)"
-  style.font-size: 14
-  style.font-weight: bold
+  hidden_layer.neuron5 -> output_layer.neuron10
+  hidden_layer.neuron6 -> output_layer.neuron10
+  hidden_layer.neuron7 -> output_layer.neuron10
+  hidden_layer.neuron8 -> output_layer.neuron10
+  hidden_layer.neuron9 -> output_layer.neuron10
 }

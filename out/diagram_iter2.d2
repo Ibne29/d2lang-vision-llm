@@ -1,66 +1,51 @@
 direction: right
 
-# Pipeline de génération de diagrammes D2
-
-## Modèle de langage Mistral (Codestral)
-Mistral: {
-  shape: rectangle
-  style: {
-    fill: "#f0f8ff"
-    stroke: "#4682b4"
-    stroke-width: 2
-  }
-  label: "Modèle de langage Mistral (Codestral)"
+client: Client {
+  shape: person
 }
 
-## RAG avec documentation officielle D2lang
-RAG: {
-  shape: cylinder
-  style: {
-    fill: "#e6e6fa"
-    stroke: "#9370db"
-    stroke-width: 2
-  }
-  label: "RAG avec documentation officielle D2lang"
-}
-
-## Modèle Vision LLM (Pixtral)
-Pixtral: {
+api_gateway: API Gateway {
   shape: hexagon
-  style: {
-    fill: "#fff0f5"
-    stroke: "#db7093"
-    stroke-width: 2
-  }
-  label: "Modèle Vision LLM (Pixtral)"
 }
 
-## Flux de travail
-Mistral -> RAG: {
-  label: "Génération de texte"
-  style: {
-    stroke: "#4682b4"
-    stroke-dash: 5
-  }
+auth_service: Auth Service {
+  shape: rectangle
 }
 
-RAG -> Pixtral: {
-  label: "Vérification visuelle"
-  style: {
-    stroke: "#9370db"
-    stroke-dash: 5
-  }
+orders_service: Orders Service {
+  shape: rectangle
 }
 
-Pixtral -> Mistral: {
-  label: "Feedback"
-  style: {
-    stroke: "#db7093"
-    stroke-dash: 5
-  }
+payments_service: Payments Service {
+  shape: rectangle
 }
 
-# Connections
-Mistral -> RAG: Génère du texte basé sur la documentation D2lang
-RAG -> Pixtral: Vérifie la cohérence visuelle entre le texte et le diagramme généré
-Pixtral -> Mistral: Fournit des feedbacks pour améliorer la génération de texte
+auth_db: Auth DB {
+  shape: cylinder
+}
+
+orders_db: Orders DB {
+  shape: cylinder
+}
+
+payments_db: Payments DB {
+  shape: cylinder
+}
+
+client -> api_gateway: HTTP Request
+api_gateway -> auth_service: Auth Request
+auth_service -> auth_db: Query
+auth_db -> auth_service: Response
+auth_service -> api_gateway: Auth Response
+
+api_gateway -> orders_service: Order Request
+orders_service -> orders_db: Query
+orders_db -> orders_service: Response
+orders_service -> api_gateway: Order Response
+
+api_gateway -> payments_service: Payment Request
+payments_service -> payments_db: Query
+payments_db -> payments_service: Response
+payments_service -> api_gateway: Payment Response
+
+api_gateway -> client: HTTP Response

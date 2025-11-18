@@ -1,6 +1,7 @@
 import fs from "fs";
 import { execSync } from "child_process";
 import { Mistral } from "@mistralai/mistralai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
 
@@ -8,7 +9,7 @@ dotenv.config();
 
 // Initialisation du client Mistral
 const client = new Mistral({ apiKey: process.env.MISTRAL_API_KEY });
-
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 // Prompt utilisateur
 const userPrompt =
   process.argv[2] || "Deux clients parlent à un serveur et une base de données";
@@ -89,14 +90,14 @@ async function describeDiagram(imagePath) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "pixtral-12b",
+      model: "pixtral-large-latest",
       messages: [
         {
           role: "user",
           content: [
             {
               type: "text",
-              text: "Décris brièvement ce diagramme D2 en une phrase factuelle.",
+              text: "Décris brièvement ce diagramme D2 en une phrase concise.",
             },
             {
               type: "image_url",
@@ -131,20 +132,19 @@ async function cosineSimilarity(a, b) {
   return dot / (normA * normB);
 }
 
+ 
+
 async function embedding(text) {
-  const res = await fetch("https://api.mistral.ai/v1/embeddings", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.MISTRAL_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: "mistral-embed-2312",
-      input: text,
-    }),
-  });
-  const json = await res.json();
-  return json.data[0].embedding;
+  try {
+    // Utilise le modèle d'embedding de Google
+    const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
+    const result = await model.embedContent(text);
+    const embedding = result.embedding;
+    return embedding.values;
+  } catch (err) {
+    console.error("❌ Erreur d'embedding Google :", err);
+    throw err;
+  }
 }
 
 // --- Étape 6 : Pipeline principal ---
@@ -177,7 +177,7 @@ async function main() {
       const sim = await cosineSimilarity(embPrompt, embCaption);
       console.log(`📊 Similarité cosinus : ${sim.toFixed(3)}`);
 
-      if (sim > seuil_comparaison) {
+      if (sim >= seuil_comparaison) {
         console.log("✅ Cohérence suffisante ! Pipeline terminé avec succès.");
         return;
       } else {

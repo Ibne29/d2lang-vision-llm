@@ -1,102 +1,65 @@
 direction: right
 
-pipeline: {
+client: Client {
+  shape: person
+}
+
+api_gateway: API Gateway {
+  shape: hexagon
+}
+
+auth_service: Auth Service {
   shape: rectangle
-  label: "Pipeline de génération de diagrammes D2"
   style: {
-    fill: "#f0f0f0"
+    fill: "#f9f9f9"
     stroke: "#333"
-    stroke-width: 2
   }
 }
 
-mistral_model: {
+orders_service: Orders Service {
   shape: rectangle
-  label: "Modèle Mistral (Codestral)"
   style: {
-    fill: "#e6f7ff"
-    stroke: "#1890ff"
-    stroke-width: 2
+    fill: "#f9f9f9"
+    stroke: "#333"
   }
 }
 
-pixtral_model: {
+payments_service: Payments Service {
   shape: rectangle
-  label: "Modèle Vision LLM (Pixtral)"
   style: {
-    fill: "#fff2e6"
-    stroke: "#fa8c16"
-    stroke-width: 2
+    fill: "#f9f9f9"
+    stroke: "#333"
   }
 }
 
-rag_system: {
-  shape: rectangle
-  label: "Système RAG"
+auth_db: Auth DB {
+  shape: cylinder
   style: {
-    fill: "#f6ffed"
-    stroke: "#52c41a"
-    stroke-width: 2
+    fill: "#e6e6e6"
+    stroke: "#333"
   }
 }
 
-d2_docs: {
-  shape: rectangle
-  label: "Documentation officielle D2lang"
+orders_db: Orders DB {
+  shape: cylinder
   style: {
-    fill: "#fff0f6"
-    stroke: "#eb2f96"
-    stroke-width: 2
+    fill: "#e6e6e6"
+    stroke: "#333"
   }
 }
 
-text_input: {
-  shape: rectangle
-  label: "Texte d'entrée"
+payments_db: Payments DB {
+  shape: cylinder
   style: {
-    fill: "#f0f5ff"
-    stroke: "#1890ff"
-    stroke-width: 2
+    fill: "#e6e6e6"
+    stroke: "#333"
   }
 }
 
-diagram_output: {
-  shape: rectangle
-  label: "Diagramme D2 généré"
-  style: {
-    fill: "#f0f5ff"
-    stroke: "#1890ff"
-    stroke-width: 2
-  }
-}
-
-visual_check: {
-  shape: rectangle
-  label: "Vérification visuelle"
-  style: {
-    fill: "#fff7e6"
-    stroke: "#faad14"
-    stroke-width: 2
-  }
-}
-
-feedback_loop: {
-  shape: rectangle
-  label: "Boucle de feedback"
-  style: {
-    fill: "#e6fffb"
-    stroke: "#5cdbd3"
-    stroke-width: 2
-  }
-}
-
-pipeline -> mistral_model: "Utilise"
-pipeline -> pixtral_model: "Utilise"
-pipeline -> rag_system: "Alimente"
-rag_system -> d2_docs: "Récupère des données"
-text_input -> pipeline: "Fournit"
-pipeline -> diagram_output: "Génère"
-diagram_output -> pixtral_model: "Analyse"
-pixtral_model -> visual_check: "Vérifie"
-visual_check -> feedback_loop: "Retourne des résultats"
-feedback_loop -> pipeline: "Améliore"
+client -> api_gateway: HTTP Request
+api_gateway -> auth_service: Auth Request
+api_gateway -> orders_service: Orders Request
+api_gateway -> payments_service: Payments Request
+auth_service -> auth_db: Query
+orders_service -> orders_db: Query
+payments_service -> payments_db: Query
