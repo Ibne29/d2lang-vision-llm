@@ -1,0 +1,114 @@
+"Un système composé de deux départements : un département RH avec trois employés et un département IT avec deux serveurs et une base de données."
+
+"Une architecture logicielle avec trois couches : interface utilisateur, logique métier et base de données."
+
+"Un réseau d’entreprise avec plusieurs sous-réseaux (LAN, DMZ, Internet) et un pare-feu entre eux."
+
+"Un professeur encadrant deux doctorants, chacun collaborant avec un laboratoire différent."
+
+"Un système de microservices : API Gateway, Service Authentification, Service Paiement, Service Notification et une base de données partagée."
+
+
+"Un diagramme illustrant le processus de décision dans une entreprise (idée → validation → implémentation → feedback)."
+
+"Une chaîne de traitement de données scientifiques : capteur → prétraitement → analyse statistique → rapport PDF."
+
+"Un modèle d'apprentissage automatique : jeu de données, modèle, entraînement, validation, prédiction."
+
+"Un flux de traitement d’images : capture → débruitage → reconnaissance → stockage."
+
+"Un réseau social miniature avec trois utilisateurs, chacun pouvant suivre ou être suivi."
+
+
+
+"Une architecture distribuée avec trois régions cloud (Europe, USA, Asie) contenant chacune un serveur d’application et une base de données répliquée."
+
+"Un graphe social où cinq personnes sont connectées entre elles selon leurs relations d’amitié et de collaboration."
+
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Un réseau neuronal avec trois couches (entrée, cachée, sortie) dont 4 neurones pour la couche entrée, 5 pour la couche cachée, 
+et des flèches représentant les connexions entre les neurones.
+
+
+Une architecture microservices où un client envoie des requêtes à une API Gateway, qui distribue ensuite vers trois microservices : Authentification, Commandes, et Paiements. Chaque microservice communique avec sa propre base de données.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+"Un modèle client-serveur avec un cache local, un load balancer et deux serveurs de calcul derrière."
+
+"Une architecture de microservices Kubernetes : API Gateway, Auth Service, Order Service, Database, et Message Queue Kafka."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+🧠 1️⃣ Intelligence artificielle & systèmes neuronaux
+
+Un réseau de neurones convolutif composé de trois couches de convolution, suivies d’une couche de pooling, puis d’une couche entièrement connectée menant à une sortie de classification à 10 classes.
+
+Un perceptron multicouche avec une couche d’entrée de 8 neurones, deux couches cachées de 6 et 4 neurones respectivement, et une couche de sortie binaire. Les connexions sont orientées vers l’avant, de gauche à droite.
+
+Un réseau de neurones récurrent (RNN) illustrant la boucle de rétroaction sur la couche cachée, avec les entrées successives x₁, x₂, x₃ et les sorties correspondantes y₁, y₂, y₃.
+
+Une architecture Transformer simplifiée montrant les modules Encoder (avec multi-head attention et feed-forward) et Decoder, reliés par des flèches représentant les embeddings et la génération de texte.
+
+🧩 2️⃣ Systèmes distribués et architectures logicielles
+
+Une architecture microservices où un client envoie des requêtes à une API Gateway, qui distribue ensuite vers trois microservices : Authentification, Commandes, et Paiements. Chaque microservice communique avec sa propre base de données.
+
+Un pipeline de données composé de trois étapes : ingestion (Kafka), transformation (Spark), et stockage (Data Lake). Une flèche relie chaque composant, illustrant le flux de données.
+
+Une architecture cloud avec un load balancer devant deux serveurs applicatifs, eux-mêmes connectés à une base de données PostgreSQL. Ajoute une flèche de retour vers un client web.
+
+Un graphe représentant un cluster Kubernetes : un “Master Node” connecté à trois “Worker Nodes”, chacun hébergeant deux pods (containers) exécutant des microservices.
+
+🌍 3️⃣ Processus métiers et organisations
+
+Un organigramme d’entreprise où le Directeur Général supervise deux départements : Technique et Commercial. Le Département Technique contient une équipe Développement et une équipe Support. Le Département Commercial contient les équipes Ventes et Marketing.
+
+Un processus de commande e-commerce : le Client passe une commande → le Service Logistique prépare l’envoi → le Service Livraison expédie → le Client reçoit la commande et confirme la réception.
+
+Un diagramme de gestion de projet Agile montrant les colonnes “Backlog”, “To Do”, “In Progress” et “Done”, avec des cartes représentant les tâches qui se déplacent entre ces états.
+
+⚙️ 4️⃣ Informatique et réseaux
+
+Un réseau informatique avec trois ordinateurs connectés à un routeur, lui-même relié à un serveur distant via Internet. Représente les flèches de communication dans les deux sens.
+
+Un diagramme montrant les couches du modèle OSI : Physique, Liaison, Réseau, Transport, Session, Présentation et Application. Les flèches montent de la couche physique vers la couche application.
+
+Un schéma de base de données relationnelle avec trois tables : Utilisateurs, Commandes, et Produits, reliées par des clés étrangères (Utilisateurs → Commandes, Commandes → Produits).
+
+Un système client-serveur où plusieurs clients envoient des requêtes HTTP à un serveur web, qui lui-même interagit avec une base de données SQL.
+
+🧬 5️⃣ Exemples avancés (multi-niveaux, complexes)
+
+Un pipeline d’apprentissage automatique complet :
+(1) Préparation des données → (2) Entraînement du modèle → (3) Évaluation → (4) Déploiement.
+Chaque étape contient un sous-bloc : par exemple, l’entraînement contient “Chargement du dataset”, “Forward pass”, “Calcul de la perte”, “Rétropropagation”.
+
+Un diagramme représentant un algorithme génétique avec une population initiale, une sélection, un croisement, une mutation, et une nouvelle génération. Les flèches montrent le flux évolutif.
+
+Un graphe représentant un réseau social : trois utilisateurs (Alice, Bob, Claire) reliés entre eux par des liens d’amitié bidirectionnels. Alice suit aussi un compte Entreprise.
+
+Une architecture de traitement de requêtes SQL : un utilisateur envoie une requête → parseur SQL → optimiseur → plan d’exécution → moteur d’exécution → stockage des résultats.
+
+Une architecture microservices où un client envoie des requêtes à une API Gateway, qui distribue ensuite vers trois microservices : Authentification, Commandes, et Paiements. Chaque microservice communique avec sa propre base de données.
+Un système de reconnaissance d’images : les images passent par des modules “Prétraitement”, “Extraction de caractéristiques”, “Classification”, et enfin “Résultats”. Chaque module est représenté par un nœud avec flèches directionnelles.

@@ -5,7 +5,7 @@
 Ce projet met en œuvre un pipeline intelligent capable de générer automatiquement des diagrammes D2 à partir d’un prompt utilisateur en langage naturel.
 
 Le pipeline utilise un modèle de langage Mistral (Codestral) et un RAG (Retrieval-Augmented Generation) alimenté par la documentation officielle de D2lang.
-Il intègre également un modèle Vision LLM (Pixtral) pour vérifier automatiquement la cohérence visuelle entre le texte et le diagramme généré.
+Il intègre également un modèle Vision LLM (Pixtral), pour vérifier automatiquement la cohérence visuelle entre le texte et le diagramme généré.
 
 # Le pipeline permet de : 
 
@@ -17,7 +17,7 @@ Il intègre également un modèle Vision LLM (Pixtral) pour vérifier automatiqu
 
 👁️ analyser l’image générée avec un modèle vision (Pixtral),
 
-🔍 mesurer la similarité sémantique texte/image via embeddings,
+🔍 mesurer la similarité sémantique prompt/image via embeddings,
 
 🔁 se corriger et itérer automatiquement jusqu’à obtenir un résultat cohérent.
 
@@ -28,11 +28,13 @@ Il intègre également un modèle Vision LLM (Pixtral) pour vérifier automatiqu
 
 Node.js	: Environnement d’exécution du pipeline
 
+RAG (via fetch)	: Téléchargement de la documentation officielle D2
+
 Mistral API (codestral-latest) : Génération du code D2
 
 D2lang	: Langage de description de diagrammes
 
-RAG (via fetch)	: Téléchargement de la documentation officielle D2
+Google API (Gemini) : Transformation de textes en embbedings 
 
 dotenv	: Gestion sécurisée des clés API
 
@@ -41,12 +43,12 @@ HTML / JavaScript / CSS
 
 # Exécution du pipeline (dans le terminal) :
 
-Créer un .env à l'image de .env.example dans lequel il faut renseigner la clef api (MISTRAL_API_KEY=ta_cle_ici)
+Créer un .env à l'image de .env.example dans lequel il faut renseigner les deux clefs api (MISTRAL_API_KEY et GOOGLE_API_KEY)
 
 
 node pipeline.js "Deux clients parlent à un serveur et une base de données"
 
-(On peut changer de prompt)
+(En remplaçant par votre prompt)
 
 # Produit 
 
@@ -62,7 +64,7 @@ Une application web permet de visualiser les logs, les itérations et les images
 
 Lancer le serveur:
 
-node server.js
+node server.js ou npm start
 
 
 # Fonctionnalités :
