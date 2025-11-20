@@ -75,7 +75,7 @@ async function fetchD2Doc() {
     return fullDoc;
     
   } catch (err) {
-    console.warn("⚠️ Erreur lors du téléchargement, utilisation du fallback...");
+    console.log("⚠️ Erreur lors du téléchargement, utilisation du fallback...");
     if (fs.existsSync(fallbackFile)) {
       return fs.readFileSync(fallbackFile, 'utf-8');
     }
@@ -92,7 +92,11 @@ async function generateD2(prompt, ragText, feedback = "") {
       {
         role: "system",
         content:
-          "Tu écris uniquement du code D2 valide, sans texte explicatif, en respectant la documentation officielle de D2lang.",
+          `Tu écris uniquement du code D2 valide, sans texte explicatif, en respectant la documentation officielle de D2lang.
+IMPORTANT : 
+- Utilise des identifiants simples sans guillemets quand possible (ex: client1, serveur, database)
+- Si tu dois utiliser des guillemets, assure-toi qu'ils soient bien fermés
+- Teste mentalement la syntaxe avant de générer le code`,
       },
       {
         role: "user",
@@ -206,7 +210,21 @@ async function embedding(text) {
 async function main() {
   const ragText = await fetchD2Doc();
   let feedback = "";
-  const seuil_comparaison = 0.90;
+  
+  // Seuil adaptatif selon la longueur/précision du prompt
+  const promptWords = userPrompt.split(/\s+/).length;
+  let seuil_comparaison;
+  if (promptWords >= 10) {
+    seuil_comparaison = 0.78; // Prompt détaillé = seuil élevé
+  } else if (promptWords >= 6) {
+    seuil_comparaison = 0.72; // Prompt moyen
+  } else {
+    seuil_comparaison = 0.68; // Prompt court/vague = seuil plus bas
+  }
+  console.log(`🎯 Seuil de cohérence : ${seuil_comparaison} (prompt : ${promptWords} mots)`);
+  
+  let bestScore = 0;
+  let bestIteration = 0;
 
   for (let i = 0; i < 5; i++) {
     const iterStart = Date.now();//Mesure le temps de début d'itération
@@ -244,6 +262,12 @@ async function main() {
       
       const sim = await cosineSimilarity(embPrompt, embCaption);//Mesure le temps de similarité
       console.log(`📊 Similarité cosinus : ${sim.toFixed(3)}`);
+      
+      // Tracker le meilleur score
+      if (sim > bestScore) {
+        bestScore = sim;
+        bestIteration = i + 1;
+      }
 
       if (sim >= seuil_comparaison) {
         timings.iteration.push(Date.now() - iterStart);
@@ -251,16 +275,24 @@ async function main() {
         printPerformanceStats();//
         return;
       } else {
-        feedback = `Le diagramme ne correspond pas assez bien (${sim.toFixed(
-          3
-        )}). Caption : ${caption}. Corrige le code.`;
+        // Feedback détaillé pour guider le LLM
+        feedback = `Similarité actuelle : ${sim.toFixed(3)} (objectif : ${seuil_comparaison}).
+        
+Ce que Pixtral voit dans l'image : "${caption}"
+Ce que l'utilisateur a demandé : "${userPrompt}"
+
+Instructions pour améliorer :
+- Utilise des noms DESCRIPTIFS qui correspondent aux termes du prompt
+- Respecte EXACTEMENT tous les éléments mentionnés dans : "${userPrompt}"
+- Améliore le diagramme précédent au lieu de recommencer
+- Choisis les formes D2 appropriées selon le contexte (rectangle, cylinder, circle, person, etc.)`;
       }
     } else {
       feedback = `Erreur de compilation : ${result}`;
     }
     timings.iteration.push(Date.now() - iterStart);//
   }
-  console.warn("⚠️ Aucune itération n'a produit un diagramme cohérent.");
+  console.log(`⚠️ Seuil (${seuil_comparaison}) non atteint. Meilleur score : ${bestScore.toFixed(3)} (itération ${bestIteration})`);
   printPerformanceStats();
 }
 

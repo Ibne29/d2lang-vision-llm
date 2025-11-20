@@ -1,4 +1,39 @@
-x -> y: client request
-z -> y: client request
-y -> w: server request
-w -> v: database query
+direction: right
+
+authentication_flow: {
+  user: {
+    shape: person
+    label: "Utilisateur"
+  }
+
+  login_page: {
+    shape: document
+    label: "Page de Connexion"
+  }
+
+  credentials: {
+    shape: cylinder
+    label: "Identifiants"
+  }
+
+  server: {
+    shape: package
+    label: "Serveur"
+  }
+
+  session_token: {
+    shape: document
+    label: "Jeton de Session"
+  }
+
+  protected_resource: {
+    shape: document
+    label: "Ressource Protégée"
+  }
+}
+
+authentication_flow.user -> authentication_flow.login_page: "Accède à"
+authentication_flow.login_page -> authentication_flow.credentials: "Soumet"
+authentication_flow.credentials -> authentication_flow.server: "Authentifie"
+authentication_flow.server -> authentication_flow.session_token: "Génère"
+authentication_flow.session_token -> authentication_flow.protected_resource: "Accède à"

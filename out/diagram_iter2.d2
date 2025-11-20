@@ -1,30 +1,39 @@
-client1: {
-  shape: person
-}
+direction: right
 
-client2: {
-  shape: person
-}
+authentication_flow: {
+  user: {
+    shape: person
+    label: "User"
+  }
 
-y: {
-  label: "Serveur"
-}
+  login_page: {
+    shape: document
+    label: "Login Page"
+  }
 
-z: {
-  label: "Base de données"
-  shape: database
-}
+  credentials: {
+    shape: document
+    label: "Credentials"
+  }
 
-a: {
-  label: "Données stockées"
-  shape: stored_data
-}
+  auth_server: {
+    shape: cloud
+    label: "Auth Server"
+  }
 
-client1 -> y: "Requête"
-client2 -> y: "Requête"
-y -> z: "Requête"
-z -> a: "Accès"
-a -> z: "Retour"
-z -> y: "Retour"
-y -> client1: "Réponse"
-y -> client2: "Réponse"
+  session_token: {
+    shape: document
+    label: "Session Token"
+  }
+
+  protected_resource: {
+    shape: document
+    label: "Protected Resource"
+  }
+
+  user -> login_page: "Access"
+  login_page -> credentials: "Submit"
+  credentials -> auth_server: "Authenticate"
+  auth_server -> session_token: "Issue"
+  session_token -> protected_resource: "Access"
+}

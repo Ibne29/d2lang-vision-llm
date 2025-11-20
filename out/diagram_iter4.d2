@@ -1,4 +1,32 @@
-x -> y: client request
-z -> y: client request
-y -> w: server request
-w -> v: database query
+authentication_flow: {
+  user: {
+    shape: person
+    label: "User"
+  }
+  login_page: {
+    shape: page
+    label: "Login Page"
+  }
+  credentials: {
+    shape: document
+    label: "Credentials"
+  }
+  server: {
+    shape: cylinder
+    label: "Server"
+  }
+  session_token: {
+    shape: document
+    label: "Session Token"
+  }
+  protected_resource: {
+    shape: document
+    label: "Protected Resource"
+  }
+
+  user -> login_page: "Access"
+  login_page -> credentials: "Submit"
+  credentials -> server: "Authenticate"
+  server -> session_token: "Issue"
+  session_token -> protected_resource: "Access"
+}

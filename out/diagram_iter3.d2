@@ -1,4 +1,32 @@
-x -> y: client 1
-z -> y: client 2
-y -> w: serveur
-w -> v: base de données
+authentication_flow: {
+  user: {
+    shape: person
+    label: "Utilisateur"
+  }
+  login_page: {
+    shape: page
+    label: "Page de connexion"
+  }
+  credentials: {
+    shape: document
+    label: "Identifiants"
+  }
+  auth_server: {
+    shape: cylinder
+    label: "Serveur d'authentification"
+  }
+  session_token: {
+    shape: document
+    label: "Jeton de session"
+  }
+  protected_resource: {
+    shape: cloud
+    label: "Ressource protégée"
+  }
+
+  user -> login_page: "Accède à"
+  login_page -> credentials: "Soumet"
+  credentials -> auth_server: "Authentifie"
+  auth_server -> session_token: "Émet"
+  session_token -> protected_resource: "Permet l'accès à"
+}

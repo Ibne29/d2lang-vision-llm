@@ -17,7 +17,10 @@
   "version": "1.0.0",
   "description": "Pipeline intelligent pour generer des diagrammes D2 avec Vision LLM",
   "main": "pipeline.js",
+  "type": "module",
   "scripts": {
+    "start": "node server.js",
+    "pipeline": "node pipeline.js \"Deux clients parlent à un serveur et une base de données\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

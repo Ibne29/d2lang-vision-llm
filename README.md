@@ -75,4 +75,6 @@ Logs du pipeline affichés en direct
 
 Images des différentes itérations affichées au fur et à mesure
 
-Arrêt automatique une fois qu’un diagramme cohérent est obtenu
+Statistiques de performance en temps réel (temps de génération, compilation, vision, embeddings)
+
+Arrêt automatique une fois qu’un diagramme cohérent est obtenu (seuil de similarité : 0.75)

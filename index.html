@@ -201,7 +201,9 @@ function startPipeline() {
             // Affichage dans la zone logs
             let className = "log-entry";
             if (line.includes("❌")) className += " log-error";
+            if (line.includes("✅") || line.includes("success:")) className += " log-success";
             if (line.includes("Similarité")) className += " log-highlight";
+            if (line.includes("🧠 Caption")) className += " log-highlight";
             appendLog(line, className);
 
             // Si aucune itération courante, on ignore les métriques

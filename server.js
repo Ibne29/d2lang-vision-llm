@@ -11,6 +11,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname)); // sert index.html et images
 
+// Supprime les codes couleurs ANSI des logs
+function stripAnsi(str) {
+  return str.replace(/[\u001b\u009b][[\]()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, "");
+}
+
 // --- Flux temps réel (SSE) ---
 app.get("/logs", (req, res) => {
   res.writeHead(200, {
@@ -30,7 +35,7 @@ app.get("/logs", (req, res) => {
   console.log(`▶️ Pipeline lancé pour ${prompt}`);
 
   proc.stdout.on("data", (data) => {
-    const msg = data.toString();
+    const msg = stripAnsi(data.toString());
 
     // Si une image est générée
     const match = msg.match(/diagram_iter(\d+)\.png/);
@@ -47,8 +52,14 @@ app.get("/logs", (req, res) => {
   });
 
   proc.stderr.on("data", (data) => {
-    const msg = `[ERR] ${data.toString()}`;
-    res.write(`data: ${msg}\n\n`);
+    let raw = stripAnsi(data.toString());
+    // d2 écrit parfois les lignes de succès sur stderr avec couleurs
+    if (/success: successfully compiled/i.test(raw)) {
+      res.write(`data: ${raw}\n\n`);
+    } else {
+      const msg = `[ERR] ${raw}`;
+      res.write(`data: ${msg}\n\n`);
+    }
   });
 
   proc.on("close", () => {
@@ -60,3 +71,4 @@ app.get("/logs", (req, res) => {
 app.listen(3000, () =>
   console.log("🌐 Interface sur http://localhost:3000")
 );
+
