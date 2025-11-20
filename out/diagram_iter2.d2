@@ -1,13 +1,30 @@
-direction: right
+client1: {
+  shape: person
+}
 
-client1: Client 1
-client2: Client 2
-server: Serveur
-database: Base de données
+client2: {
+  shape: person
+}
 
-client1 -> server: Requête
-client2 -> server: Requête
-server -> database: Requête
-database -> server: Réponse
-server -> client1: Réponse
-server -> client2: Réponse
+y: {
+  label: "Serveur"
+}
+
+z: {
+  label: "Base de données"
+  shape: database
+}
+
+a: {
+  label: "Données stockées"
+  shape: stored_data
+}
+
+client1 -> y: "Requête"
+client2 -> y: "Requête"
+y -> z: "Requête"
+z -> a: "Accès"
+a -> z: "Retour"
+z -> y: "Retour"
+y -> client1: "Réponse"
+y -> client2: "Réponse"

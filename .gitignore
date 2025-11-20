@@ -9,3 +9,6 @@ yarn-debug.log*
 yarn-error.log*
 Notes.txt/
 prompt.txt/
+
+# Cache RAG
+rag_d2_full.txt

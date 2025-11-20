@@ -1,38 +1,4 @@
-client1: Client 1 {
-  shape: rectangle
-  style: {
-    fill: "#f0f0f0"
-    stroke: "#333"
-  }
-}
-
-client2: Client 2 {
-  shape: rectangle
-  style: {
-    fill: "#f0f0f0"
-    stroke: "#333"
-  }
-}
-
-server: Serveur {
-  shape: rectangle
-  style: {
-    fill: "#e0e0e0"
-    stroke: "#333"
-  }
-}
-
-database: Base de données {
-  shape: cylinder
-  style: {
-    fill: "#d0d0d0"
-    stroke: "#333"
-  }
-}
-
-client1 -> server: Requête
-client2 -> server: Requête
-server -> database: Requête
-database -> server: Réponse
-server -> client1: Réponse
-server -> client2: Réponse
+x -> y: client 1
+z -> y: client 2
+y -> w: serveur
+w -> v: base de données

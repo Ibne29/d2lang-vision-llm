@@ -23,16 +23,62 @@ const timings = {
   iteration: []
 };
 
-// --- Étape 1 : Charger la documentation D2 ---
+// --- Étape 1 : Charger la documentation D2 (version améliorée avec cache) ---
 async function fetchD2Doc() {
+  const cacheFile = 'rag_d2_full.txt';
+  const fallbackFile = 'rag_d2.txt';
+  
+  // Vérifier si le cache existe déjà
+  if (fs.existsSync(cacheFile)) {
+    console.log("📚 Chargement de la documentation D2 (cache local)...");
+    const cached = fs.readFileSync(cacheFile, 'utf-8');
+    console.log(`✅ Documentation chargée (${cached.length} caractères)`);
+    return cached;
+  }
+  
   try {
-    console.log("📚 Téléchargement de la documentation D2...");
-    const res = await fetch("https://d2lang.com/tour/intro");
-    const html = await res.text();
-    console.log("✅ Documentation récupérée !");
-    return html;
+    console.log("📚 Téléchargement complet de la documentation D2...");
+    
+    // Pages importantes de la documentation D2
+    const pages = [
+      "https://d2lang.com/tour/intro",
+      "https://d2lang.com/tour/hello-world",
+      "https://d2lang.com/tour/connections",
+      "https://d2lang.com/tour/shapes",
+      "https://d2lang.com/tour/containers",
+      "https://d2lang.com/tour/style"
+    ];
+    
+    const docs = [];
+    
+    for (const url of pages) {
+      const res = await fetch(url);
+      const html = await res.text();
+      
+      // Extraction du contenu texte (suppression des balises HTML)
+      const textContent = html
+        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+        .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+      
+      docs.push(`\n--- ${url} ---\n${textContent.substring(0, 2000)}`);
+    }
+    
+    const fullDoc = docs.join('\n\n');
+    
+    // Sauvegarder dans le cache
+    fs.writeFileSync(cacheFile, fullDoc);
+    
+    console.log(`✅ Documentation récupérée et mise en cache (${fullDoc.length} caractères)`);
+    return fullDoc;
+    
   } catch (err) {
-    console.warn("⚠️ Impossible de récupérer la doc D2 :", err);
+    console.warn("⚠️ Erreur lors du téléchargement, utilisation du fallback...");
+    if (fs.existsSync(fallbackFile)) {
+      return fs.readFileSync(fallbackFile, 'utf-8');
+    }
     return "";
   }
 }

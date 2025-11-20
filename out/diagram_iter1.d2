@@ -1,14 +1,4 @@
-client1: Client 1
-client2: Client 2
-server: Serveur
-database: Base de données
-
-client1 -> server: Requête
-server -> database: Requête
-database -> server: Réponse
-server -> client1: Réponse
-
-client2 -> server: Requête
-server -> database: Requête
-database -> server: Réponse
-server -> client2: Réponse
+x -> y: client1
+x -> y: client2
+y -> z: serveur
+z -> a: base de données
