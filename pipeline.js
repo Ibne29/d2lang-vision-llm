@@ -14,6 +14,15 @@ const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 const userPrompt =
   process.argv[2] || "Deux clients parlent à un serveur et une base de données";
 
+// --- Mesures de performance (ce que j'ai rajouter)---
+const timings = {
+  generation: [],
+  compilation: [],
+  vision: [],
+  embedding: [],
+  iteration: []
+};
+
 // --- Étape 1 : Charger la documentation D2 ---
 async function fetchD2Doc() {
   try {
@@ -154,8 +163,12 @@ async function main() {
   const seuil_comparaison = 0.90;
 
   for (let i = 0; i < 5; i++) {
+    const iterStart = Date.now();//Mesure le temps de début d'itération
     console.log(`\n🔁 Itération ${i + 1}`);
+    
+    const genStart = Date.now();//Mesure le temps de début de génération
     const d2Code = await generateD2(userPrompt, ragText, feedback);
+    timings.generation.push(Date.now() - genStart);
 
     const cleanCode = d2Code
       .replace(/```d2/g, "")
@@ -166,19 +179,30 @@ async function main() {
     
     console.log("🧠 Code D2 généré et nettoyé :\n");
 
+    const compStart = Date.now();//Mesure le temps de début de compilation
     const result = compileD2(`out/diagram_iter${i + 1}.d2`);
+    timings.compilation.push(Date.now() - compStart);
     if (result === true) {
-      console.log("🖼️ Génération réussie, vérification sémantique...");
+      console.log("Génération réussie, vérification sémantique...");//Mesure le temps de début de vérification sémantique
+      
+      const visionStart = Date.now();//Mesure le temps de début de vision
       const caption = await describeDiagram(`out/diagram_iter${i + 1}.png`);
+      timings.vision.push(Date.now() - visionStart);//Mesure le temps de vision
+      
+      const embStart = Date.now();//Mesure le temps de début d'embedding
       const [embPrompt, embCaption] = await Promise.all([
         embedding(userPrompt),
         embedding(caption),
       ]);
-      const sim = await cosineSimilarity(embPrompt, embCaption);
+      timings.embedding.push(Date.now() - embStart);//Mesure le temps d'embedding
+      
+      const sim = await cosineSimilarity(embPrompt, embCaption);//Mesure le temps de similarité
       console.log(`📊 Similarité cosinus : ${sim.toFixed(3)}`);
 
       if (sim >= seuil_comparaison) {
+        timings.iteration.push(Date.now() - iterStart);
         console.log("✅ Cohérence suffisante ! Pipeline terminé avec succès.");
+        printPerformanceStats();//
         return;
       } else {
         feedback = `Le diagramme ne correspond pas assez bien (${sim.toFixed(
@@ -188,8 +212,45 @@ async function main() {
     } else {
       feedback = `Erreur de compilation : ${result}`;
     }
+    timings.iteration.push(Date.now() - iterStart);//
   }
-  console.warn("⚠️ Aucune itération n’a produit un diagramme cohérent.");
+  console.warn("⚠️ Aucune itération n'a produit un diagramme cohérent.");
+  printPerformanceStats();
+}
+
+// --- Affichage des statistiques de performance ---
+function printPerformanceStats() {
+  console.log("\n" + "=".repeat(50));
+  console.log("📊 STATISTIQUES DE PERFORMANCE");
+  console.log("=".repeat(50));
+  
+  const avg = (arr) => arr.length ? (arr.reduce((a,b) => a+b, 0) / arr.length).toFixed(0) : 0;//Calcule la moyenne des temps
+  
+  console.log(`\n⏱️  Temps moyen par étape :`);
+  console.log(`   - Génération D2      : ${avg(timings.generation)} ms`);
+  console.log(`   - Compilation        : ${avg(timings.compilation)} ms`);
+  console.log(`   - Vision (Pixtral)   : ${avg(timings.vision)} ms`);
+  console.log(`   - Embeddings (Gemini): ${avg(timings.embedding)} ms`);
+  console.log(`   - Itération complète : ${avg(timings.iteration)} ms`);
+  
+  console.log(`\n🔢 Nombre d'itérations : ${timings.iteration.length}`);
+  
+  const total = timings.iteration.reduce((a,b) => a+b, 0);
+  console.log(`⏰ Temps total         : ${(total / 1000).toFixed(2)} secondes`);
+  console.log("=".repeat(50) + "\n");
+  
+  // Afficher en JSON pour l'interface web
+  const stats = {
+    generation: avg(timings.generation),
+    compilation: avg(timings.compilation),
+    vision: avg(timings.vision),
+    embedding: avg(timings.embedding),
+    iteration: avg(timings.iteration),
+    total_iterations: timings.iteration.length,
+    total_time: (total / 1000).toFixed(2)
+  };
+  
+  console.log("STATS_JSON:" + JSON.stringify(stats));
 }
 
 main();

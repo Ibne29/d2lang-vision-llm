@@ -115,6 +115,25 @@
                 Prêt. Entrez un prompt et cliquez sur Lancer.
             </p>
         </div>
+
+        <!-- Zone des statistiques de performance -->
+        <div style="margin-top: 20px; background-color: #282a36; padding: 15px; border-radius: 8px;">
+            <h3 style="margin-top: 0; color: #fab387;">📊 Statistiques de Performance</h3>
+            <div id="statsOutput" style="display: none;">
+                <div class="metric">Génération D2 : <span id="stat-gen">-</span> ms</div>
+                <div class="metric">Compilation : <span id="stat-comp">-</span> ms</div>
+                <div class="metric">Vision (Pixtral) : <span id="stat-vision">-</span> ms</div>
+                <div class="metric">Embeddings : <span id="stat-emb">-</span> ms</div>
+                <div class="metric">Temps/itération : <span id="stat-iter">-</span> ms</div>
+                <div class="metric" style="margin-top: 10px; font-weight: bold; color: #a6e3a1;">
+                    Temps total : <span id="stat-total">-</span> sec
+                </div>
+                <div class="metric">Itérations : <span id="stat-count">-</span></div>
+            </div>
+            <p id="statsPlaceholder" style="text-align:center; color:#6c7086;">
+                Les statistiques apparaîtront en fin de pipeline.
+            </p>
+        </div>
     </div>
 
     <div class="iterations-panel">
@@ -223,6 +242,17 @@ function startPipeline() {
                     }
                 }
             }
+
+            // Capture des statistiques de performance
+            if (line.startsWith("STATS_JSON:")) {
+                const statsJson = line.substring(11);
+                try {
+                    const stats = JSON.parse(statsJson);
+                    displayStats(stats);
+                } catch (e) {
+                    console.error("Erreur parsing stats:", e);
+                }
+            }
         }
     };
 
@@ -290,6 +320,22 @@ function displayIteration(iter, filePath) {
             img.src = `${filePath}?t=${Date.now()}`;
         }
     }
+}
+
+/* -------------------------------------------------------
+   Affichage des statistiques de performance
+------------------------------------------------------- */
+function displayStats(stats) {
+    document.getElementById('stat-gen').textContent = stats.generation;
+    document.getElementById('stat-comp').textContent = stats.compilation;
+    document.getElementById('stat-vision').textContent = stats.vision;
+    document.getElementById('stat-emb').textContent = stats.embedding;
+    document.getElementById('stat-iter').textContent = stats.iteration;
+    document.getElementById('stat-total').textContent = stats.total_time;
+    document.getElementById('stat-count').textContent = stats.total_iterations;
+    
+    document.getElementById('statsOutput').style.display = 'block';
+    document.getElementById('statsPlaceholder').style.display = 'none';
 }
 
 runButton.addEventListener("click", startPipeline);

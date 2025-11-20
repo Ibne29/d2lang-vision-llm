@@ -1,67 +1,38 @@
-direction: right
-
-client: Client {
-  shape: person
-}
-
-api_gateway: API Gateway {
-  shape: hexagon
-}
-
-auth_service: Auth Service {
+client1: Client 1 {
   shape: rectangle
   style: {
-    fill: "#f9f9f9"
+    fill: "#f0f0f0"
     stroke: "#333"
   }
 }
 
-orders_service: Orders Service {
+client2: Client 2 {
   shape: rectangle
   style: {
-    fill: "#f9f9f9"
+    fill: "#f0f0f0"
     stroke: "#333"
   }
 }
 
-payments_service: Payments Service {
+server: Serveur {
   shape: rectangle
   style: {
-    fill: "#f9f9f9"
+    fill: "#e0e0e0"
     stroke: "#333"
   }
 }
 
-auth_db: Auth DB {
+database: Base de données {
   shape: cylinder
   style: {
-    fill: "#e6f7ff"
+    fill: "#d0d0d0"
     stroke: "#333"
   }
 }
 
-orders_db: Orders DB {
-  shape: cylinder
-  style: {
-    fill: "#e6f7ff"
-    stroke: "#333"
-  }
-}
-
-payments_db: Payments DB {
-  shape: cylinder
-  style: {
-    fill: "#e6f7ff"
-    stroke: "#333"
-  }
-}
-
-client -> api_gateway: HTTP Request
-
-api_gateway -> auth_service: Auth Request
-api_gateway -> orders_service: Orders Request
-api_gateway -> payments_service: Payments Request
-
-auth_service -> auth_db: Query
-orders_service -> orders_db: Query
-payments_service -> payments_db: Query
+client1 -> server: Requête
+client2 -> server: Requête
+server -> database: Requête
+database -> server: Réponse
+server -> client1: Réponse
+server -> client2: Réponse

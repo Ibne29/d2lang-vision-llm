@@ -1,72 +1,24 @@
 direction: right
 
-network: {
-  shape: rectangle
-  label: "Neural Network"
-  style.stroke: blue
-  style.fill: lightblue
-
-  input_layer: {
-    shape: ellipse
-    label: "Input Layer"
-    style.stroke: green
-    style.fill: lightgreen
-
-    neuron1: "Neuron 1"
-    neuron2: "Neuron 2"
-    neuron3: "Neuron 3"
-    neuron4: "Neuron 4"
-  }
-
-  hidden_layer: {
-    shape: ellipse
-    label: "Hidden Layer"
-    style.stroke: orange
-    style.fill: lightyellow
-
-    neuron5: "Neuron 5"
-    neuron6: "Neuron 6"
-    neuron7: "Neuron 7"
-    neuron8: "Neuron 8"
-    neuron9: "Neuron 9"
-  }
-
-  output_layer: {
-    shape: ellipse
-    label: "Output Layer"
-    style.stroke: red
-    style.fill: pink
-
-    neuron10: "Neuron 10"
-  }
-
-  input_layer.neuron1 -> hidden_layer.neuron5
-  input_layer.neuron1 -> hidden_layer.neuron6
-  input_layer.neuron1 -> hidden_layer.neuron7
-  input_layer.neuron1 -> hidden_layer.neuron8
-  input_layer.neuron1 -> hidden_layer.neuron9
-
-  input_layer.neuron2 -> hidden_layer.neuron5
-  input_layer.neuron2 -> hidden_layer.neuron6
-  input_layer.neuron2 -> hidden_layer.neuron7
-  input_layer.neuron2 -> hidden_layer.neuron8
-  input_layer.neuron2 -> hidden_layer.neuron9
-
-  input_layer.neuron3 -> hidden_layer.neuron5
-  input_layer.neuron3 -> hidden_layer.neuron6
-  input_layer.neuron3 -> hidden_layer.neuron7
-  input_layer.neuron3 -> hidden_layer.neuron8
-  input_layer.neuron3 -> hidden_layer.neuron9
-
-  input_layer.neuron4 -> hidden_layer.neuron5
-  input_layer.neuron4 -> hidden_layer.neuron6
-  input_layer.neuron4 -> hidden_layer.neuron7
-  input_layer.neuron4 -> hidden_layer.neuron8
-  input_layer.neuron4 -> hidden_layer.neuron9
-
-  hidden_layer.neuron5 -> output_layer.neuron10
-  hidden_layer.neuron6 -> output_layer.neuron10
-  hidden_layer.neuron7 -> output_layer.neuron10
-  hidden_layer.neuron8 -> output_layer.neuron10
-  hidden_layer.neuron9 -> output_layer.neuron10
+client1: Client 1 {
+  shape: person
 }
+
+client2: Client 2 {
+  shape: person
+}
+
+server: Server {
+  shape: rectangle
+}
+
+database: Database {
+  shape: cylinder
+}
+
+client1 -> server: Request
+client2 -> server: Request
+server -> database: Query
+database -> server: Response
+server -> client1: Response
+server -> client2: Response
