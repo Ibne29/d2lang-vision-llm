@@ -206,6 +206,17 @@ function startPipeline() {
             if (line.includes("🧠 Caption")) className += " log-highlight";
             appendLog(line, className);
 
+            // Capture des statistiques de performance
+            if (line.startsWith("STATS_JSON:")) {
+                const statsJson = line.substring(11);
+                try {
+                    const stats = JSON.parse(statsJson);
+                    displayStats(stats);
+                } catch (e) {
+                    console.error("Erreur parsing stats:", e);
+                }
+            }
+
             // Si aucune itération courante, on ignore les métriques
             if (!currentIter) continue;
 
@@ -234,25 +245,9 @@ function startPipeline() {
                         simSpan.textContent = sim.toFixed(3);
                         simBlock.style.display = "block";
                     }
-                    if (statusSpan && card) {
-                        if (sim >= 0.90) {
-                            statusSpan.textContent = "✅ SUCCÈS (Cohérence atteinte)";
-                            card.classList.add("success");
-                        } else {
-                            statusSpan.textContent = "🔄 Une nouvelle itération est nécessaire";
-                        }
+                    if (statusSpan) {
+                        statusSpan.textContent = `📊 Similarité : ${sim.toFixed(3)}`;
                     }
-                }
-            }
-
-            // Capture des statistiques de performance
-            if (line.startsWith("STATS_JSON:")) {
-                const statsJson = line.substring(11);
-                try {
-                    const stats = JSON.parse(statsJson);
-                    displayStats(stats);
-                } catch (e) {
-                    console.error("Erreur parsing stats:", e);
                 }
             }
         }

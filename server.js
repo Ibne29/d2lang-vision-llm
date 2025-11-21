@@ -35,7 +35,7 @@ app.get("/logs", (req, res) => {
   console.log(`▶️ Pipeline lancé pour ${prompt}`);
 
   proc.stdout.on("data", (data) => {
-    const msg = stripAnsi(data.toString());
+    const msg = stripAnsi(data.toString());//Supprime les codes couleurs ANSI des logs
 
     // Si une image est générée
     const match = msg.match(/diagram_iter(\d+)\.png/);
@@ -63,8 +63,11 @@ app.get("/logs", (req, res) => {
   });
 
   proc.on("close", () => {
-    res.write(`data: [END]\n\n`);
-    res.end();
+    // Petit délai pour s'assurer que tous les messages sont envoyés
+    setTimeout(() => {
+      res.write(`data: [END]\n\n`);
+      res.end();
+    }, 500);
   });
 });
 

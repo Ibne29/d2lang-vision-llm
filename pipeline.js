@@ -75,7 +75,7 @@ async function fetchD2Doc() {
     return fullDoc;
     
   } catch (err) {
-    console.log("⚠️ Erreur lors du téléchargement, utilisation du fallback...");
+    console.log("⚠️ Erreur lors du téléchargement, utilisation du fallback...");//Supprime les codes couleurs ANSI des logs
     if (fs.existsSync(fallbackFile)) {
       return fs.readFileSync(fallbackFile, 'utf-8');
     }
@@ -211,18 +211,6 @@ async function main() {
   const ragText = await fetchD2Doc();
   let feedback = "";
   
-  // Seuil adaptatif selon la longueur/précision du prompt
-  const promptWords = userPrompt.split(/\s+/).length;
-  let seuil_comparaison;
-  if (promptWords >= 10) {
-    seuil_comparaison = 0.78; // Prompt détaillé = seuil élevé
-  } else if (promptWords >= 6) {
-    seuil_comparaison = 0.72; // Prompt moyen
-  } else {
-    seuil_comparaison = 0.68; // Prompt court/vague = seuil plus bas
-  }
-  console.log(`🎯 Seuil de cohérence : ${seuil_comparaison} (prompt : ${promptWords} mots)`);
-  
   let bestScore = 0;
   let bestIteration = 0;
 
@@ -267,16 +255,11 @@ async function main() {
       if (sim > bestScore) {
         bestScore = sim;
         bestIteration = i + 1;
+        console.log(`✨ Nouveau meilleur score !`);
       }
 
-      if (sim >= seuil_comparaison) {
-        timings.iteration.push(Date.now() - iterStart);
-        console.log("✅ Cohérence suffisante ! Pipeline terminé avec succès.");
-        printPerformanceStats();//
-        return;
-      } else {
-        // Feedback détaillé pour guider le LLM
-        feedback = `Similarité actuelle : ${sim.toFixed(3)} (objectif : ${seuil_comparaison}).
+      // Feedback pour la prochaine itération
+      feedback = `Similarité actuelle : ${sim.toFixed(3)}.
         
 Ce que Pixtral voit dans l'image : "${caption}"
 Ce que l'utilisateur a demandé : "${userPrompt}"
@@ -286,13 +269,18 @@ Instructions pour améliorer :
 - Respecte EXACTEMENT tous les éléments mentionnés dans : "${userPrompt}"
 - Améliore le diagramme précédent au lieu de recommencer
 - Choisis les formes D2 appropriées selon le contexte (rectangle, cylinder, circle, person, etc.)`;
-      }
     } else {
       feedback = `Erreur de compilation : ${result}`;
     }
     timings.iteration.push(Date.now() - iterStart);//
   }
-  console.log(`⚠️ Seuil (${seuil_comparaison}) non atteint. Meilleur score : ${bestScore.toFixed(3)} (itération ${bestIteration})`);
+  
+  console.log(`\n${'='.repeat(50)}`);
+  console.log(`🏆 MEILLEUR RÉSULTAT : Itération ${bestIteration}`);
+  console.log(`📊 Similarité maximale : ${bestScore.toFixed(3)}`);
+  console.log(`✅ Diagramme retenu : out/diagram_iter${bestIteration}.png`);
+  console.log('='.repeat(50));
+  
   printPerformanceStats();
 }
 
