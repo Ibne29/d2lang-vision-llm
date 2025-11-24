@@ -1,3 +1,13 @@
-x -> serveur: client1
-y -> serveur: client2
-serveur -> database: requête
+direction: right
+
+client1: Client 1
+client2: Client 2
+server: Serveur
+database: Base de données
+
+client1 -> server: Requête
+client2 -> server: Requête
+server -> database: Requête
+database -> server: Réponse
+server -> client1: Réponse
+server -> client2: Réponse

@@ -1,39 +1,29 @@
 direction: right
 
-authentication_flow: {
-  user: {
-    shape: person
-    label: "User"
-  }
-
-  login_page: {
-    shape: document
-    label: "Login Page"
-  }
-
-  credentials: {
-    shape: document
-    label: "Credentials"
-  }
-
-  auth_server: {
-    shape: cloud
-    label: "Auth Server"
-  }
-
-  session_token: {
-    shape: document
-    label: "Session Token"
-  }
-
-  protected_resource: {
-    shape: document
-    label: "Protected Resource"
-  }
-
-  user -> login_page: "Access"
-  login_page -> credentials: "Submit"
-  credentials -> auth_server: "Authenticate"
-  auth_server -> session_token: "Issue"
-  session_token -> protected_resource: "Access"
+# Client 1
+client1: Client 1 {
+  shape: person
 }
+
+# Client 2
+client2: Client 2 {
+  shape: person
+}
+
+# Serveur
+server: Serveur {
+  shape: rectangle
+}
+
+# Base de données
+database: Base de données {
+  shape: cylinder
+}
+
+# Connexions
+client1 -> server: Requête
+client2 -> server: Requête
+server -> database: Requête
+database -> server: Réponse
+server -> client1: Réponse
+server -> client2: Réponse

@@ -1,32 +1,13 @@
-authentication_flow: {
-  user: {
-    shape: person
-    label: "Utilisateur"
-  }
-  login_page: {
-    shape: page
-    label: "Page de connexion"
-  }
-  credentials: {
-    shape: document
-    label: "Identifiants"
-  }
-  auth_server: {
-    shape: cylinder
-    label: "Serveur d'authentification"
-  }
-  session_token: {
-    shape: document
-    label: "Jeton de session"
-  }
-  protected_resource: {
-    shape: cloud
-    label: "Ressource protégée"
-  }
+direction: right
 
-  user -> login_page: "Accède à"
-  login_page -> credentials: "Soumet"
-  credentials -> auth_server: "Authentifie"
-  auth_server -> session_token: "Émet"
-  session_token -> protected_resource: "Permet l'accès à"
-}
+client1: Client 1
+client2: Client 2
+server: Serveur
+database: Base de données
+
+client1 -> server: Requête
+client2 -> server: Requête
+server -> database: Requête
+database -> server: Réponse
+server -> client1: Réponse
+server -> client2: Réponse

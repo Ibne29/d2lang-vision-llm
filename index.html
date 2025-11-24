@@ -116,24 +116,24 @@
             </p>
         </div>
 
-        <!-- Zone des statistiques de performance -->
-        <div style="margin-top: 20px; background-color: #282a36; padding: 15px; border-radius: 8px;">
-            <h3 style="margin-top: 0; color: #fab387;">📊 Statistiques de Performance</h3>
-            <div id="statsOutput" style="display: none;">
+        <div class="stats-panel" style="margin-top: 20px; background-color: #282a36; padding: 15px; border-radius: 8px;">
+            <h3 style="margin-top: 0; color: #fab387;">📊 Statistiques de performance</h3>
+            <div id="statsOutput" style="display:none;">
                 <div class="metric">Génération D2 : <span id="stat-gen">-</span> ms</div>
                 <div class="metric">Compilation : <span id="stat-comp">-</span> ms</div>
                 <div class="metric">Vision (Pixtral) : <span id="stat-vision">-</span> ms</div>
                 <div class="metric">Embeddings : <span id="stat-emb">-</span> ms</div>
-                <div class="metric">Temps/itération : <span id="stat-iter">-</span> ms</div>
-                <div class="metric" style="margin-top: 10px; font-weight: bold; color: #a6e3a1;">
-                    Temps total : <span id="stat-total">-</span> sec
+                <div class="metric">Itération complète : <span id="stat-iter">-</span> ms</div>
+                <div class="metric" style="margin-top: 10px; font-weight:bold; color:#a6e3a1;">
+                    Temps total : <span id="stat-total">-</span> s
                 </div>
-                <div class="metric">Itérations : <span id="stat-count">-</span></div>
+                <div class="metric">Nombre d'itérations : <span id="stat-count">-</span></div>
             </div>
-            <p id="statsPlaceholder" style="text-align:center; color:#6c7086;">
+            <p id="statsPlaceholder" style="text-align:center;color:#6c7086;">
                 Les statistiques apparaîtront en fin de pipeline.
             </p>
         </div>
+
     </div>
 
     <div class="iterations-panel">
@@ -153,6 +153,8 @@ const promptInput = document.getElementById("promptInput");
 const runButton = document.getElementById("runButton");
 const logOutput = document.getElementById("logOutput");
 const iterationsOutput = document.getElementById("iterationsOutput");
+let bestIteration = null;
+let bestSimilarity = -Infinity;
 
 /* -------------------------------------------------------
    Démarrage du pipeline
@@ -162,6 +164,10 @@ function startPipeline() {
     logOutput.innerHTML = "";
     iterationsOutput.innerHTML = "";
     currentIter = null;
+    bestIteration = null;
+    bestSimilarity = -Infinity;
+    document.getElementById('statsOutput').style.display = 'none';
+    document.getElementById('statsPlaceholder').style.display = 'block';
 
     const prompt = promptInput.value.trim();
     if (!prompt) return alert("Veuillez entrer un prompt.");
@@ -248,10 +254,20 @@ function startPipeline() {
                     if (statusSpan) {
                         statusSpan.textContent = `📊 Similarité : ${sim.toFixed(3)}`;
                     }
+                    highlightBestIteration(currentIter, sim);
                 }
             }
         }
     };
+
+    eventSource.addEventListener('stats', (event) => {
+        try {
+            const stats = JSON.parse(event.data);
+            displayStats(stats);
+        } catch (err) {
+            console.error('Erreur parsing stats:', err);
+        }
+    });
 
     eventSource.onerror = () => {
         appendLog("❌ Erreur SSE", "log-error");
@@ -292,9 +308,6 @@ function displayIteration(iter, filePath) {
                          alt="Diagramme Itération ${iter}">
                 </div>
                 <div class="iteration-details">
-                    <p class="metric">
-                        Statut : <span id="status-${iter}">Compilation réussie</span>
-                    </p>
                     <div class="metric" id="caption-block-${iter}" style="display:none;">
                         Caption (Pixtral) : 
                         <span id="caption-${iter}"></span>
@@ -316,6 +329,24 @@ function displayIteration(iter, filePath) {
         if (img) {
             img.src = `${filePath}?t=${Date.now()}`;
         }
+    }
+}
+
+function highlightBestIteration(iter, sim) {
+    if (sim <= bestSimilarity) return;
+
+    if (bestIteration) {
+        const previous = document.getElementById(`iteration-card-${bestIteration}`);
+        if (previous) previous.classList.remove("success");
+    }
+
+    bestSimilarity = sim;
+    bestIteration = iter;
+
+    const card = document.getElementById(`iteration-card-${iter}`);
+    if (card) {
+        card.classList.add("success");
+        iterationsOutput.prepend(card);
     }
 }
 

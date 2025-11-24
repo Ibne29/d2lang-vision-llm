@@ -37,6 +37,20 @@ app.get("/logs", (req, res) => {
   proc.stdout.on("data", (data) => {
     const msg = stripAnsi(data.toString());//Supprime les codes couleurs ANSI des logs
 
+    msg.split("\n").forEach((line) => {
+      const trimmed = line.trim();
+      if (!trimmed) return;
+      if (trimmed.startsWith("STATS_JSON:")) {
+        const statsPayload = trimmed.substring(11);
+        try {
+          JSON.parse(statsPayload);
+          res.write(`event: stats\ndata: ${statsPayload}\n\n`);
+        } catch (err) {
+          console.error("Impossible d'envoyer les stats SSE:", err.message);
+        }
+      }
+    });
+
     // Si une image est générée
     const match = msg.match(/diagram_iter(\d+)\.png/);
     if (match) {

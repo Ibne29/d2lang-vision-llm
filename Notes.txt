@@ -1,0 +1,145 @@
+On va utiliser openai comme llm vision, capable de lire une image et d'en donner une description. 
+On cherche à transformer une image en embedding. C'est pourquoi on doit d'abord transformer l'image en texte descriptif de celle-ci puis transformer ce texte qui decrit l'image en embedding qu'on va ensuite 
+comparer à l'embedding du texte de prompt.
+
+
+ Modèles disponibles de mistral:
+ [
+  'mistral-medium-2505',
+  'mistral-large-latest',
+  'mistral-medium-2508',
+  'mistral-medium-latest',
+  'mistral-medium',
+  'ministral-3b-2410',
+  'ministral-3b-latest',
+  'ministral-8b-2410',
+  'ministral-8b-latest',
+  'open-mistral-7b',
+  'mistral-tiny',
+  'mistral-tiny-2312',
+  'open-mistral-nemo',
+  'open-mistral-nemo-2407',
+  'mistral-tiny-2407',
+  'mistral-tiny-latest',
+  'mistral-large-2411',
+  'pixtral-large-2411',
+  'pixtral-large-latest',
+  'mistral-large-pixtral-2411',
+  'codestral-2508',
+  'codestral-latest',
+  'devstral-small-2507',
+  'devstral-small-latest',
+  'devstral-medium-2507',
+  'devstral-medium-latest',
+  'pixtral-12b-2409',
+  'pixtral-12b',
+  'pixtral-12b-latest',
+  'mistral-small-2501',
+  'mistral-small-2506',
+  'mistral-small-latest',
+  'magistral-medium-2509',
+  'magistral-medium-latest',
+  'magistral-small-2509',
+  'magistral-small-latest',
+  'voxtral-mini-2507',
+  'voxtral-mini-latest',
+  'voxtral-small-2507',
+  'voxtral-small-latest',
+  'devstral-small-2505',
+  'magistral-small-2506',
+  'magistral-medium-2506',
+  'magistral-small-2507',
+  'magistral-medium-2507',
+  'mistral-small-2409',
+  'codestral-2501',
+  'codestral-2412',
+  'codestral-2411-rc5',
+  'mistral-small-2503',
+  'mistral-embed-2312',
+  'mistral-embed',
+  'codestral-embed',
+  'codestral-embed-2505',
+  'mistral-moderation-2411',
+  'mistral-moderation-latest',
+  'mistral-ocr-2505',
+  'mistral-ocr-latest',
+  'mistral-ocr-2503',
+  'voxtral-mini-transcribe-2507',
+  'voxtral-mini-2507',
+  'voxtral-mini-latest'
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GEMINI : 
+📋 Modèles disponibles:
+- models/embedding-gecko-001 (Embedding Gecko)
+- models/gemini-2.5-pro-preview-03-25 (Gemini 2.5 Pro Preview 03-25)
+- models/gemini-2.5-flash-preview-05-20 (Gemini 2.5 Flash Preview 05-20)
+- models/gemini-2.5-flash (Gemini 2.5 Flash)
+- models/gemini-2.5-flash-lite-preview-06-17 (Gemini 2.5 Flash-Lite Preview 06-17)
+- models/gemini-2.5-pro-preview-05-06 (Gemini 2.5 Pro Preview 05-06)
+- models/gemini-2.5-pro-preview-06-05 (Gemini 2.5 Pro Preview)
+- models/gemini-2.5-pro (Gemini 2.5 Pro)
+- models/gemini-2.0-flash-exp (Gemini 2.0 Flash Experimental)
+- models/gemini-2.0-flash (Gemini 2.0 Flash)
+- models/gemini-2.0-flash-001 (Gemini 2.0 Flash 001)
+- models/gemini-2.0-flash-lite-001 (Gemini 2.0 Flash-Lite 001)
+- models/gemini-2.0-flash-lite (Gemini 2.0 Flash-Lite)
+- models/gemini-2.0-flash-lite-preview-02-05 (Gemini 2.0 Flash-Lite Preview 02-05)
+- models/gemini-2.0-flash-lite-preview (Gemini 2.0 Flash-Lite Preview)
+- models/gemini-2.0-pro-exp (Gemini 2.0 Pro Experimental)
+- models/gemini-2.0-pro-exp-02-05 (Gemini 2.0 Pro Experimental 02-05)
+- models/gemini-exp-1206 (Gemini Experimental 1206)
+- models/gemini-2.0-flash-thinking-exp-01-21 (Gemini 2.5 Flash Preview 05-20)
+- models/gemini-2.0-flash-thinking-exp (Gemini 2.5 Flash Preview 05-20)
+- models/gemini-2.0-flash-thinking-exp-1219 (Gemini 2.5 Flash Preview 05-20)
+- models/gemini-2.5-flash-preview-tts (Gemini 2.5 Flash Preview TTS)
+- models/gemini-2.5-pro-preview-tts (Gemini 2.5 Pro Preview TTS)
+- models/learnlm-2.0-flash-experimental (LearnLM 2.0 Flash Experimental)
+- models/gemma-3-1b-it (Gemma 3 1B)
+- models/gemma-3-4b-it (Gemma 3 4B)
+- models/gemma-3-12b-it (Gemma 3 12B)
+- models/gemma-3-27b-it (Gemma 3 27B)
+- models/gemma-3n-e4b-it (Gemma 3n E4B)
+- models/gemma-3n-e2b-it (Gemma 3n E2B)
+- models/gemini-flash-latest (Gemini Flash Latest)
+- models/gemini-flash-lite-latest (Gemini Flash-Lite Latest)
+- models/gemini-pro-latest (Gemini Pro Latest)
+- models/gemini-2.5-flash-lite (Gemini 2.5 Flash-Lite)
+- models/gemini-2.5-flash-image-preview (Nano Banana)
+- models/gemini-2.5-flash-image (Nano Banana)
+- models/gemini-2.5-flash-preview-09-2025 (Gemini 2.5 Flash Preview Sep 2025)
+- models/gemini-2.5-flash-lite-preview-09-2025 (Gemini 2.5 Flash-Lite Preview Sep 2025)
+- models/gemini-robotics-er-1.5-preview (Gemini Robotics-ER 1.5 Preview)
+- models/gemini-2.5-computer-use-preview-10-2025 (Gemini 2.5 Computer Use Preview 10-2025)
+- models/embedding-001 (Embedding 001)
+- models/text-embedding-004 (Text Embedding 004)
+- models/gemini-embedding-exp-03-07 (Gemini Embedding Experimental 03-07)
+- models/gemini-embedding-exp (Gemini Embedding Experimental)
+- models/gemini-embedding-001 (Gemini Embedding 001)
+- models/aqa (Model that performs Attributed Question Answering.)
+- models/imagen-4.0-generate-preview-06-06 (Imagen 4 (Preview))
+- models/imagen-4.0-ultra-generate-preview-06-06 (Imagen 4 Ultra (Preview))
+- models/imagen-4.0-generate-001 (Imagen 4)
+- models/imagen-4.0-ultra-generate-001 (Imagen 4 Ultra)
+
+🧬 Modèles d'embedding () :
+- models/embedding-001
+- models/text-embedding-004
+- models/gemini-embedding-exp-03-07
+- models/gemini-embedding-exp
+- models/gemini-embedding-001
