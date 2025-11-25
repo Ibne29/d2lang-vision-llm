@@ -21,6 +21,7 @@ const timings = {
   embedding: [],
   iteration: [],
 };
+const similarities = [];
 
 // --- Étape 1 : Charger la documentation D2 ---
 async function fetchD2Doc() {
@@ -158,9 +159,11 @@ async function embedding(text) {
 async function main() {
   const ragText = await fetchD2Doc();
   let feedback = "";
+  // Le seuil à partir duquel on confirme le diagramme et stoppons l'itération
   const seuil_comparaison = 0.90;
+  const nombre_max_iteration = 1
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < nombre_max_iteration; i++) {
     const iterStart = Date.now();
     console.log(`\n🔁 Itération ${i + 1}`);
     const genStart = Date.now();
@@ -193,6 +196,7 @@ async function main() {
       const sim = await cosineSimilarity(embPrompt, embCaption);
       console.log(`📊 Similarité cosinus : ${sim.toFixed(3)}`);
       timings.iteration.push(Date.now() - iterStart);
+      similarities.push(sim);
 
       if (sim >= seuil_comparaison) {
         console.log("✅ Cohérence suffisante ! Pipeline terminé avec succès.");
@@ -206,6 +210,9 @@ async function main() {
     } else {
       feedback = `Erreur de compilation : ${result}`;
       timings.iteration.push(Date.now() - iterStart);
+      timings.vision.push(0);
+      timings.embedding.push(0);
+      similarities.push(null);
     }
   }
   printPerformanceStats();
@@ -217,6 +224,7 @@ function printPerformanceStats() {
     arr.length
       ? (arr.reduce((sum, value) => sum + value, 0) / arr.length).toFixed(0)
       : "0";
+  const sum = (arr) => arr.reduce((total, value) => total + value, 0);
 
   const totalIterations = timings.iteration.length;
   const totalTimeMs = timings.iteration.reduce((sum, value) => sum + value, 0);
@@ -244,6 +252,21 @@ function printPerformanceStats() {
     iteration: avg(timings.iteration),
     total_iterations: totalIterations,
     total_time: (totalTimeMs / 1000).toFixed(2),
+    similarities,
+    stage_totals: {
+      generation: sum(timings.generation),
+      compilation: sum(timings.compilation),
+      vision: sum(timings.vision),
+      embedding: sum(timings.embedding),
+    },
+    per_iteration: Array.from({ length: totalIterations }, (_, idx) => ({
+      iteration: idx + 1,
+      generation: timings.generation[idx] ?? 0,
+      compilation: timings.compilation[idx] ?? 0,
+      vision: timings.vision[idx] ?? 0,
+      embedding: timings.embedding[idx] ?? 0,
+      total: timings.iteration[idx] ?? 0,
+    })),
   };
 
   console.log("STATS_JSON:" + JSON.stringify(stats));

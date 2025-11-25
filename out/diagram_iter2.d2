@@ -1,26 +1,10 @@
 direction: right
 
-# Client 1
-client1: Client 1 {
-  shape: person
-}
+client1: Client 1
+client2: Client 2
+server: Serveur
+database: Base de données
 
-# Client 2
-client2: Client 2 {
-  shape: person
-}
-
-# Serveur
-server: Serveur {
-  shape: rectangle
-}
-
-# Base de données
-database: Base de données {
-  shape: cylinder
-}
-
-# Connexions
 client1 -> server: Requête
 client2 -> server: Requête
 server -> database: Requête

@@ -27,10 +27,13 @@
 
         .container {
             display: flex;
-            width: 90%;
-            max-width: 1400px;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            width: 100%;
+            max-width: 95%;
             margin-top: 20px;
             gap: 20px;
+            justify-content: space-between;
         }
         .controls-panel, .log-panel {
             background-color: #282a36;
@@ -38,8 +41,12 @@
             border-radius: 8px;
             flex-grow: 1;
         }
-        .controls-panel { width: 30%; min-width: 300px; }
-        .log-panel { width: 70%; max-height: 70vh; overflow-y: auto; }
+        .controls-panel { width: 20%; min-width: 280px; }
+        .iterations-panel { width: 20%; min-width: 300px; }
+        .charts-panel { width: 40%; min-width: 260px; background-color: #282a36; padding: 20px; border-radius: 8px; }
+
+
+        .log-panel {  max-height: 70vh; overflow-y: auto; }
 
         #promptInput {
             width: 100%; padding: 10px; margin-bottom: 15px;
@@ -90,6 +97,27 @@
             margin-bottom: 5px;
         }
         .metric span { font-weight:bold; }
+        .chart-card {
+            background-color: #313244;
+            border-radius: 8px;
+            padding: 15px;
+            
+            margin-bottom: 20px;
+        }
+        .chart-card h4 {
+            margin: 0 0 10px;
+            font-size: 0.95rem;
+            
+            color: #f5c2e7;
+        }
+        .chart-card canvas {
+            width: 100%;
+             /* augmente la hauteur */
+            max-height: 800px; /* sécurité */
+            min-height: 200px;
+            
+    
+        }
     </style>
 </head>
 
@@ -144,7 +172,25 @@
             </p>
         </div>
     </div>
+
+    <div class="charts-panel">
+        <h2>Temps d'exécution</h2>
+        <div class="chart-card">
+            <h4>Durée totale par itération</h4>
+            <canvas id="iterTotalsChart"></canvas>
+        </div>
+        <div class="chart-card">
+            <h4>Répartition du temps total</h4>
+            <canvas id="stageTotalsChart"></canvas>
+        </div>
+        <div class="chart-card">
+            <h4>Détails par étape</h4>
+            <canvas id="perStageChart"></canvas>
+        </div>
+    </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
 let eventSource;
@@ -155,6 +201,11 @@ const logOutput = document.getElementById("logOutput");
 const iterationsOutput = document.getElementById("iterationsOutput");
 let bestIteration = null;
 let bestSimilarity = -Infinity;
+let charts = {
+    iterTotals: null,
+    stageTotals: null,
+    perStage: null,
+};
 
 /* -------------------------------------------------------
    Démarrage du pipeline
@@ -168,6 +219,7 @@ function startPipeline() {
     bestSimilarity = -Infinity;
     document.getElementById('statsOutput').style.display = 'none';
     document.getElementById('statsPlaceholder').style.display = 'block';
+    resetCharts();
 
     const prompt = promptInput.value.trim();
     if (!prompt) return alert("Veuillez entrer un prompt.");
@@ -364,8 +416,128 @@ function displayStats(stats) {
     
     document.getElementById('statsOutput').style.display = 'block';
     document.getElementById('statsPlaceholder').style.display = 'none';
+    renderCharts(stats);
 }
 
+function resetCharts() {
+    Object.values(charts).forEach((chart) => {
+        if (chart) chart.destroy();
+    });
+    charts = { iterTotals: null, stageTotals: null, perStage: null };
+}
+
+function renderCharts(stats) {
+    if (!stats) return;
+    const perIteration = stats.per_iteration || [];
+    const stageTotals = stats.stage_totals || {};
+    const stageConfig = [
+        { key: 'generation', label: 'Génération', color: '#f38ba8' },
+        { key: 'compilation', label: 'Compilation', color: '#fab387' },
+        { key: 'vision', label: 'Vision', color: '#89dceb' },
+        { key: 'embedding', label: 'Embeddings', color: '#cba6f7' },
+    ];
+
+
+
+
+
+    const iterCtx = document.getElementById('iterTotalsChart');
+    if (iterCtx) {
+        const data = {
+            labels: perIteration.map((item) => `Itération ${item.iteration}`),
+            datasets: [{
+                label: 'Durée totale (ms)',
+                data: perIteration.map((item) => item.total || 0),
+                borderColor: '#a6e3a1',
+                backgroundColor: 'rgba(166, 227, 161, 0.2)',
+                pointRadius: 4,
+                tension: 0.3,
+            }],
+        };
+        const options = {
+            responsive: true,
+            scales: {
+                x: { ticks: { color: '#cdd6f4' }, grid: { color: '#45475a' } },
+                y: { ticks: { color: '#cdd6f4' }, grid: { color: '#45475a' }, beginAtZero: true },
+            },
+            plugins: { legend: { labels: { color: '#cdd6f4' } } },
+        };
+        if (charts.iterTotals) {
+            charts.iterTotals.data = data;
+            charts.iterTotals.options = options;
+            charts.iterTotals.update();
+        } else if (typeof Chart !== 'undefined') {
+            charts.iterTotals = new Chart(iterCtx, { type: 'line', data, options });
+        }
+    }
+
+
+
+
+
+
+    const totalsCtx = document.getElementById('stageTotalsChart');
+    if (totalsCtx) {
+        const data = {
+            labels: stageConfig.map((s) => s.label),
+            datasets: [{
+                data: stageConfig.map((s) => stageTotals[s.key] || 0),
+                backgroundColor: stageConfig.map((s) => s.color),
+                borderColor: '#1e1e2e',
+            }],
+        };
+        const options = {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { color: '#cdd6f4' },
+                },
+            },
+        };
+        if (charts.stageTotals) {
+            charts.stageTotals.data = data;
+            charts.stageTotals.options = options;
+            charts.stageTotals.update();
+        } else if (typeof Chart !== 'undefined') {
+            charts.stageTotals = new Chart(totalsCtx, { type: 'doughnut', data, options });
+        }
+    }
+
+
+
+
+
+    const perStageCtx = document.getElementById('perStageChart');
+    if (perStageCtx) {
+        const data = {
+            labels: perIteration.map((item) => `Itération ${item.iteration}`),
+            datasets: stageConfig.map((stage) => ({
+                label: stage.label,
+                data: perIteration.map((item) => item[stage.key] || 0),
+                backgroundColor: stage.color,
+                borderColor: stage.color,
+                borderWidth: 1,
+            })),
+        };
+        const options = {
+            responsive: true,
+            scales: {
+                x: { stacked: true, ticks: { color: '#cdd6f4' }, grid: { color: '#45475a' } },
+                y: { stacked: true, ticks: { color: '#cdd6f4' }, grid: { color: '#45475a' } },
+            },
+            plugins: { legend: { labels: { color: '#cdd6f4' } } },
+            
+        };
+        if (charts.perStage) {
+            charts.perStage.data = data;
+            charts.perStage.options = options;
+            charts.perStage.update();
+        } else if (typeof Chart !== 'undefined') {
+            charts.perStage = new Chart(perStageCtx, { type: 'bar', data, options });
+        }
+    }
+}
 runButton.addEventListener("click", startPipeline);
 </script>
 
