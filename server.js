@@ -9,9 +9,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname)); // sert index.html et images
+app.use(express.static(__dirname)); 
 
-// Supprime les codes couleurs ANSI des logs
 function stripAnsi(str) {
   return str.replace(/[\u001b\u009b][[\]()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, "");
 }
@@ -35,7 +34,7 @@ app.get("/logs", (req, res) => {
   console.log(`▶️ Pipeline lancé pour ${prompt}`);
 
   proc.stdout.on("data", (data) => {
-    const msg = stripAnsi(data.toString());//Supprime les codes couleurs ANSI des logs
+    const msg = stripAnsi(data.toString());
 
     msg.split("\n").forEach((line) => {
       const trimmed = line.trim();
@@ -51,7 +50,6 @@ app.get("/logs", (req, res) => {
       }
     });
 
-    // Si une image est générée
     const match = msg.match(/diagram_iter(\d+)\.png/);
     if (match) {
       const iter = match[1];
@@ -67,7 +65,6 @@ app.get("/logs", (req, res) => {
 
   proc.stderr.on("data", (data) => {
     let raw = stripAnsi(data.toString());
-    // d2 écrit parfois les lignes de succès sur stderr avec couleurs
     if (/success: successfully compiled/i.test(raw)) {
       res.write(`data: ${raw}\n\n`);
     } else {
@@ -77,7 +74,6 @@ app.get("/logs", (req, res) => {
   });
 
   proc.on("close", () => {
-    // Petit délai pour s'assurer que tous les messages sont envoyés
     setTimeout(() => {
       res.write(`data: [END]\n\n`);
       res.end();

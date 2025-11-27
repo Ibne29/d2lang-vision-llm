@@ -7,10 +7,8 @@ import fetch from "node-fetch";
 
 dotenv.config();
 
-// Initialisation du client Mistral
 const client = new Mistral({ apiKey: process.env.MISTRAL_API_KEY });
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
-// Prompt utilisateur
 const userPrompt =
   process.argv[2] || "Deux clients parlent à un serveur et une base de données";
 
@@ -144,7 +142,6 @@ async function cosineSimilarity(a, b) {
 
 async function embedding(text) {
   try {
-    // Utilise le modèle d'embedding de Google
     const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
     const result = await model.embedContent(text);
     const embedding = result.embedding;
@@ -161,7 +158,7 @@ async function main() {
   let feedback = "";
   // Le seuil à partir duquel on confirme le diagramme et stoppons l'itération
   const seuil_comparaison = 0.90;
-  const nombre_max_iteration = 1
+  const nombre_max_iteration = 5
 
   for (let i = 0; i < nombre_max_iteration; i++) {
     const iterStart = Date.now();

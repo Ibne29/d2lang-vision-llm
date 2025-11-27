@@ -1,13 +1,56 @@
 direction: right
 
-client1: Client 1
-client2: Client 2
-server: Serveur
-database: Base de données
+network: {
+  shape: rectangle
+  label: "Network"
+  style.stroke: blue
+  style.fill: lightblue
+  style.stroke-width: 2
 
-client1 -> server: Requête
-client2 -> server: Requête
-server -> database: Requête
-database -> server: Réponse
-server -> client1: Réponse
-server -> client2: Réponse
+  input_layer: {
+    shape: oval
+    label: "Input Layer"
+    style.stroke: yellow
+    style.fill: lightyellow
+    style.stroke-width: 2
+
+    n1: "Neuron 1"
+    n2: "Neuron 2"
+    n3: "Neuron 3"
+    n4: "Neuron 4"
+  }
+
+  hidden_layer: {
+    shape: oval
+    label: "Hidden Layer"
+    style.stroke: blue
+    style.fill: lightblue
+    style.stroke-width: 2
+
+    n1: "Neuron 1"
+    n2: "Neuron 2"
+    n3: "Neuron 3"
+    n4: "Neuron 4"
+    n5: "Neuron 5"
+  }
+
+  output_layer: {
+    shape: oval
+    label: "Output Layer"
+    style.stroke: green
+    style.fill: lightgreen
+    style.stroke-width: 2
+
+    n1: "Neuron 1"
+  }
+
+  input_layer -> hidden_layer: {
+    style.stroke: black
+    style.stroke-width: 1
+  }
+
+  hidden_layer -> output_layer: {
+    style.stroke: black
+    style.stroke-width: 1
+  }
+}

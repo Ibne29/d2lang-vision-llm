@@ -77,4 +77,4 @@ Images des différentes itérations affichées au fur et à mesure
 
 Statistiques de performance en temps réel (temps de génération, compilation, vision, embeddings)
 
-Arrêt automatique une fois qu’un diagramme cohérent est obtenu (seuil de similarité : 0.75)
+Arrêt automatique une fois qu’un diagramme cohérent est obtenu (seuil de similarité : 0.90)

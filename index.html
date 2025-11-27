@@ -112,8 +112,7 @@
         }
         .chart-card canvas {
             width: 100%;
-             /* augmente la hauteur */
-            max-height: 800px; /* sécurité */
+            max-height: 800px; 
             min-height: 200px;
             
     
@@ -194,7 +193,7 @@
 
 <script>
 let eventSource;
-let currentIter = null;            // itération courante
+let currentIter = null;            
 const promptInput = document.getElementById("promptInput");
 const runButton = document.getElementById("runButton");
 const logOutput = document.getElementById("logOutput");
@@ -240,17 +239,13 @@ function startPipeline() {
             eventSource.close();
             return;
         }
-
-        // Message IMAGE:...
         if (data.startsWith("IMAGE:")) {
             const payload = JSON.parse(data.substring(6));
-            currentIter = payload.iter;                 // on associe la suite à cette itération
+            currentIter = payload.iter;                
             displayIteration(currentIter, payload.file);
-            return; // on ne log pas la ligne IMAGE
+            return;
         }
 
-        // Le reste = texte normal (stdout/stderr)
-        // On le split au cas où le chunk contient plusieurs lignes
         const lines = data.split("\n");
         for (const lineRaw of lines) {
             const line = lineRaw.trim();
@@ -371,12 +366,9 @@ function displayIteration(iter, filePath) {
                 </div>
             </div>
         `;
-
-        // on met la dernière itération en haut
         iterationsOutput.prepend(card);
 
     } else {
-        // si la carte existe déjà (re-run), on rafraîchit l'image
         const img = card.querySelector("img");
         if (img) {
             img.src = `${filePath}?t=${Date.now()}`;

@@ -1,14 +1,24 @@
-client1: Client 1
-client2: Client 2
-server: Serveur
-database: Base de données
+direction: right
 
-client1 -> server: Requête
-server -> database: Requête
-database -> server: Réponse
-server -> client1: Réponse
+client1: Client 1 {
+  shape: person
+}
 
-client2 -> server: Requête
-server -> database: Requête
-database -> server: Réponse
-server -> client2: Réponse
+client2: Client 2 {
+  shape: person
+}
+
+server: Server {
+  shape: rectangle
+}
+
+database: Database {
+  shape: cylinder
+}
+
+client1 -> server: Request
+client2 -> server: Request
+server -> database: Query
+database -> server: Response
+server -> client1: Response
+server -> client2: Response

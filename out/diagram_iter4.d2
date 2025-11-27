@@ -2,12 +2,12 @@ direction: right
 
 client1: Client 1
 client2: Client 2
-server: Serveur
-database: Base de données
+server: Server
+database: Database
 
-client1 -> server: Requête
-client2 -> server: Requête
-server -> database: Requête à la base de données
-database -> server: Réponse
-server -> client1: Réponse
-server -> client2: Réponse
+client1 -> server: Request
+client2 -> server: Request
+server -> database: Query
+database -> server: Response
+server -> client1: Response
+server -> client2: Response

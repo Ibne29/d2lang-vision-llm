@@ -6,11 +6,8 @@ server: Serveur
 database: Base de données
 
 client1 -> server: Requête
-server -> database: Requête
-database -> server: Réponse
-server -> client1: Réponse
-
 client2 -> server: Requête
 server -> database: Requête
 database -> server: Réponse
+server -> client1: Réponse
 server -> client2: Réponse
